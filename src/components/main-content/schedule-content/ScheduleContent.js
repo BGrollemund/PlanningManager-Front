@@ -40,8 +40,6 @@ class ScheduleContent extends React.Component {
             ));
         }
 
-        console.log( Math.ceil( weeksList.length / numWeeks ) );
-
         return (
             <div>
                 <div className="paginator-schedule">
