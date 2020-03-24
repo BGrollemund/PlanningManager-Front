@@ -1,6 +1,6 @@
 import React from "react";
 
-import ChangeScheduleSettings from "../../../entities/ChangeScheduleSettings";
+import IChangeSchStg from "../../../interfaces/IChangeSchStg";
 import Speaker from "../../../entities/Speaker";
 import formFieldsManager from "../../../utils/FormFieldsManager";
 
@@ -10,6 +10,19 @@ class SpeakersAdd extends React.Component {
         alias: '',
         name: ''
     };
+
+    constructor( props ) {
+        super( props );
+        this._isMounted = false;
+    }
+
+    componentDidMount() {
+        this._isMounted = true;
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
 
     handleChange = ( event ) => {
         const
@@ -22,12 +35,17 @@ class SpeakersAdd extends React.Component {
     addSpeaker = () => {
         if( formFieldsManager.checkAddSpeakerFields() ) {
             const speaker = new Speaker( this.state.name, this.state.alias );
-            this.props.addSpeaker( new ChangeScheduleSettings( 'addSpeaker', speaker ) );
 
-            this.setState( {
+            this.props.addSpeaker( new IChangeSchStg(
+                'addSpeaker',
+                'speakers',
+                speaker
+            ));
+
+            this._isMounted && this.setState( {
                 alias: '',
                 name: ''
-            } );
+            });
         }
     };
 
@@ -50,7 +68,11 @@ class SpeakersAdd extends React.Component {
                     value={ this.state.alias }
                     type="text" />
 
-                <input type="button" value="Ajouter" className="green" onClick={ this.addSpeaker }/>
+                <input
+                    className="green"
+                    onClick={ this.addSpeaker }
+                    value="Ajouter"
+                    type="button" />
 
                 <div className="error" id="speaker-error"></div>
             </div>

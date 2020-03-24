@@ -1,8 +1,10 @@
 {
   "siteInfos": {
-    "initialTitle": "Générer votre planning en quelques clics !",
     "name": "Planning Manager",
     "slogan": "Prospicio ergo sum",
     "version": "Version 0.1"
+  },
+  "pagination": {
+    "numWeeks": 8
   }
 }

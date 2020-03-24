@@ -9,13 +9,19 @@ class SpeakersMenu extends React.Component {
         this.props.changeSessionsList( data );
     };
 
+    update = () => {
+        this.props.update();
+    };
+
     render() {
         return (
             <div>
-                <SessionsAdd addSession={ this.changeSessionsList } />
+                <SessionsAdd
+                    addSession={ this.changeSessionsList } />
                 <SessionsList
-                    removeSession={ this.changeSpeakersList }
-                    speakers={ this.props.speakers } />
+                    removeSession={ this.changeSessionsList }
+                    sessions={ this.props.sessions }
+                    update={ this.update } />
             </div>
         );
     }

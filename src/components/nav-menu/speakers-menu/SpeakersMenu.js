@@ -9,13 +9,19 @@ class SpeakersMenu extends React.Component {
         this.props.changeSpeakersList( data );
     };
 
+    update = () => {
+        this.props.update();
+    };
+
     render() {
         return (
             <div>
-                <SpeakersAdd addSpeaker={ this.changeSpeakersList } />
+                <SpeakersAdd
+                    addSpeaker={ this.changeSpeakersList } />
                 <SpeakersList
                     removeSpeaker={ this.changeSpeakersList }
-                    speakers={ this.props.speakers } />
+                    speakers={ this.props.speakers }
+                    update={ this.update } />
             </div>
         );
     }

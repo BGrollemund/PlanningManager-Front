@@ -34,10 +34,6 @@ header {
         margin-left: 100px;
     }
 
-    header > :nth-child(2) {
-        flex-grow: 1;
-    }
-
     header > :last-child {
         margin-top: 23px;
     }
@@ -63,8 +59,8 @@ footer {
 }
 
 main {
-    display: flex;
     flex-grow: 1;
+    font-weight: 700;
     min-width: 100vh;
 }
 
@@ -132,6 +128,15 @@ input[type="button"] {
         cursor: pointer;
     }
 
+    input[type="button"]:disabled {
+        opacity: 0.4;
+    }
+
+        input[type="button"]:disabled:hover {
+            cursor: auto;
+            background: var(--gray);
+        }
+
     input[type="button"].green {
         background: #92f092;
     }
@@ -175,12 +180,38 @@ ul {
     list-style: none;
 }
 
+.color-picker {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 13px;
+}
+
 .content-menu {
     padding: 26px;
 }
 
 .content-menu-list {
     padding: 0 26px;
+}
+
+.content-schedule {
+    display: flex;
+}
+
+.content-week {
+    padding: 3px;
+}
+
+.content-day {
+    align-items: center;
+    border: 1px solid var(--black);
+    display: flex;
+    flex-direction: column;
+    height: 120px;
+    justify-content: center;
+    margin: 6px 0;
+    padding: 3px;
+    width: 120px;
 }
 
 .error {
@@ -190,5 +221,17 @@ ul {
 
 .error-bg {
     border: solid 1px var(--red);
+}
+
+.flex-grow-1 {
+    flex-grow: 1;
+}
+
+.input-days-list {
+    display: inline;
+}
+
+.paginator-schedule {
+    display: flex;
 }
 

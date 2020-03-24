@@ -10,8 +10,16 @@ class Schedule {
         };
     }
 
+    addSession = ( session ) => {
+        this.settings.sessions.push( session );
+    };
+
     addSpeaker = ( speaker ) => {
         this.settings.speakers.push( speaker );
+    };
+
+    removeSession = ( key ) => {
+        this.settings.sessions.splice( key, 1 );
     };
 
     removeSpeaker = ( key ) => {

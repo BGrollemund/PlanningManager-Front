@@ -1,5 +1,5 @@
 import React from "react";
-import ChangeScheduleSettings from "../../../entities/ChangeScheduleSettings";
+import IChangeSchStg from "../../../interfaces/IChangeSchStg";
 
 class SpeakersList extends React.Component {
 
@@ -8,7 +8,11 @@ class SpeakersList extends React.Component {
     };
 
     removeSpeaker = ( key ) => {
-        this.props.removeSpeaker( new ChangeScheduleSettings( 'removeSpeaker', key ) );
+        this.props.removeSpeaker( new IChangeSchStg(
+            'removeSpeaker',
+            'speakers',
+            key
+        ));
     };
 
     handleChange = ( key, event ) => {
@@ -18,37 +22,40 @@ class SpeakersList extends React.Component {
 
         let newSpeakers = this.state.speakers;
         newSpeakers[key]['edit'+name]( val );
+
         this.setState( { speakers: newSpeakers } );
+        this.props.update();
     };
 
     render() {
-
         let speakers = [];
 
         if( this.state.speakers ) {
-            for( let i=0; i<this.state.speakers.length; i++ ) {
-                speakers = Object.keys( this.state.speakers ).map( key => (
-                        <div key={key} className="content-menu-list">
-                            <input
-                                id={ "speaker-name-"+key }
-                                onChange = { this.handleChange.bind( this, key ) }
-                                name="Name"
-                                placeholder= "Intervenant"
-                                value={ this.state.speakers[key].name }
-                                type="text" />
+            speakers = Object.keys( this.state.speakers ).map( key => (
+                <div key={key} className="content-menu-list">
+                    <input
+                        id={ "speaker-name-"+key }
+                        onChange = { this.handleChange.bind( this, key ) }
+                        name="Name"
+                        placeholder= "Intervenant"
+                        value={ this.state.speakers[key].name }
+                        type="text" />
 
-                            <input
-                                id={ "speaker-alias-"+key }
-                                onChange = { this.handleChange.bind( this, key ) }
-                                name="Alias"
-                                placeholder= "Abréviation"
-                                value={ this.state.speakers[key].alias }
-                                type="text" />
+                    <input
+                        id={ "speaker-alias-"+key }
+                        onChange = { this.handleChange.bind( this, key ) }
+                        name="Alias"
+                        placeholder= "Abréviation"
+                        value={ this.state.speakers[key].alias }
+                        type="text" />
 
-                            <input type="button" value="Supprimer" className="red" onClick={ this.removeSpeaker.bind( this, key ) }/>
-                        </div>
-                ));
-            }
+                    <input
+                        className="red"
+                        onClick={ this.removeSpeaker.bind( this, key ) }
+                        value="Supprimer"
+                        type="button" />
+                </div>
+            ));
         }
 
         return (
