@@ -2,7 +2,7 @@ import React from "react";
 import ReactCircleColorPicker from "react-circle-color-picker";
 
 import IChangeSchStg from "../../../interfaces/IChangeSchStg";
-import Session from "../../../entities/Session";
+import Session from "../../../entities/settings/Session";
 import colorManager from "../../../utils/ColorManager";
 import formFieldsManager from "../../../utils/FormFieldsManager";
 

@@ -1,29 +1,27 @@
-import schInfos from "./ScheduleInfos";
+import schData from "./data/Data";
+import schSettings from "./settings/Settings";
 
 class Schedule {
 
-    constructor( scheduleInfos = schInfos, sessions = [], speakers = [] ) {
-        this.settings = {
-            infos: scheduleInfos,
-            sessions: sessions,
-            speakers: speakers
-        };
+    constructor( settings = schSettings, data = schData ) {
+        this.settings = settings;
+        this.data = data;
     }
 
     addSession = ( session ) => {
-        this.settings.sessions.push( session );
+        this.settings.sessions[ Object.keys( this.settings.sessions ).length ] = session;
     };
 
     addSpeaker = ( speaker ) => {
-        this.settings.speakers.push( speaker );
+        this.settings.speakers[ Object.keys( this.settings.speakers ).length ] = speaker;
     };
 
     removeSession = ( key ) => {
-        this.settings.sessions.splice( key, 1 );
+        delete this.settings.sessions[key];
     };
 
     removeSpeaker = ( key ) => {
-        this.settings.speakers.splice( key, 1 );
+        delete this.settings.speakers[key];
     };
 }
 

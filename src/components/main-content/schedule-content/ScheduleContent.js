@@ -12,7 +12,7 @@ class ScheduleContent extends React.Component {
     };
 
     pageNext = () => {
-        this.setState( { numPage: (this.state.numPage  + 1) } );
+        this.setState( { numPage: this.state.numPage  + 1 } );
     };
 
     pagePrevious = () => {
@@ -21,12 +21,15 @@ class ScheduleContent extends React.Component {
 
     render() {
         const
-            numWeeks = config.pagination.numWeeks,
+            numWeeks = config.paginator.numWeeks,
             weeksList = dateManager.findWeeks(
                 this.props.schedule.settings.infos.start_date,
                 this.props.schedule.settings.infos.end_date
             ),
-            weeksToShow = weeksList.slice( ( this.state.numPage - 1 ) * numWeeks, this.state.numPage * numWeeks );
+            weeksToShow = weeksList.slice(
+                ( this.state.numPage - 1 ) * numWeeks,
+                this.state.numPage * numWeeks
+            );
 
         let weeks = [];
 
@@ -62,7 +65,7 @@ class ScheduleContent extends React.Component {
                     <WeekContent
                         numCol = { 0 }
                         schedule= { this.props.schedule }
-                        weekInfos= { "Jours" } />
+                        weekInfos= { { "weekString" : "Jours" } } />
                     { weeks }
                 </div>
             </div>

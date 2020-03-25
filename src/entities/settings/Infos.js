@@ -1,4 +1,4 @@
-class ScheduleInfos {
+class Infos {
 
     constructor( name = '', start_date = new Date(), end_date = new Date(), days = {} ) {
         this.name = name;
@@ -24,7 +24,7 @@ class ScheduleInfos {
             current_date = new Date(),
             next_month_date = new Date( current_date );
 
-        next_month_date.setMonth(current_date.getMonth() + 3);
+        next_month_date.setMonth(current_date.getMonth() + 1);
 
         this.name = 'Nom de votre planning';
         this.start_date = current_date;
@@ -41,7 +41,7 @@ class ScheduleInfos {
     }
 }
 
-const schInfos = new ScheduleInfos();
+const schInfos = new Infos();
 schInfos.init();
 
 export default schInfos;

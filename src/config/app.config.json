@@ -4,7 +4,7 @@
     "slogan": "Prospicio ergo sum",
     "version": "Version 0.1"
   },
-  "pagination": {
+  "paginator": {
     "numWeeks": 8
   }
 }

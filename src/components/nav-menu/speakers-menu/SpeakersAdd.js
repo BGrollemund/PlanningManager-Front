@@ -1,7 +1,7 @@
 import React from "react";
 
 import IChangeSchStg from "../../../interfaces/IChangeSchStg";
-import Speaker from "../../../entities/Speaker";
+import Speaker from "../../../entities/settings/Speaker";
 import formFieldsManager from "../../../utils/FormFieldsManager";
 
 class SpeakersAdd extends React.Component {
