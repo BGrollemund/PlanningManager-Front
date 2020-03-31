@@ -1,5 +1,13 @@
-class FormFieldsManager {
+class FormFieldsUtils {
 
+    /**
+     * Check fields of add session form in nav menu
+     *
+     * @param name
+     * @param alias
+     * @param color
+     * @return {boolean}
+     */
     checkAddSessionFields = ( name, alias, color ) => {
         const
             $sessionAlias = document.querySelector( '#session-alias' ),
@@ -31,27 +39,66 @@ class FormFieldsManager {
         return isValid;
     };
 
-    checkAddSpeakerFields = () => {
+    /**
+     * Check fields of add slot form in nav menu
+     *
+     * @param startDate
+     * @param endDate
+     * @return {boolean}
+     */
+    checkAddSlotFields = ( startDate, endDate ) => {
         const
-            $speakerAlias = document.querySelector( '#speaker-alias' ),
-            $speakerError = document.querySelector( '#speaker-error' ),
-            $speakerName = document.querySelector( '#speaker-name' ),
-            speakerAlias = $speakerAlias.value,
-            speakerName = $speakerName.value;
+            $slotError = document.querySelector( '#slot-error' ),
+            $slotEndDate = document.querySelector( '#slot-end-time' ),
+            $slotStartDate = document.querySelector( '#slot-start-time' );
 
         let
             errMsg = '',
             isValid = true;
 
-        if( ! ( speakerAlias && speakerName ) ) {
+        if( ! ( endDate && startDate ) ) {
             errMsg = 'Veuillez renseigner les champs.';
             isValid = false;
         }
 
-        speakerAlias ?
+        endDate ?
+            $slotEndDate.classList.remove( 'error-bg' ) :
+            $slotEndDate.classList.add( 'error-bg' );
+        startDate ?
+            $slotStartDate.classList.remove( 'error-bg' ) :
+            $slotStartDate.classList.add( 'error-bg' );
+
+        $slotError.innerHTML = errMsg;
+
+        return isValid;
+    };
+
+    /**
+     * Check fields of add speaker form in nav menu
+     *
+     * @param name
+     * @param alias
+     * @return {boolean}
+     */
+    checkAddSpeakerFields = ( name, alias ) => {
+        const
+            $speakerAlias = document.querySelector( '#speaker-alias' ),
+            $speakerError = document.querySelector( '#speaker-error' ),
+            $speakerName = document.querySelector( '#speaker-name' );
+
+        let
+            errMsg = '',
+            isValid = true;
+
+        if( ! ( alias && name ) ) {
+            errMsg = 'Veuillez renseigner les champs.';
+            isValid = false;
+        }
+
+        alias ?
             $speakerAlias.classList.remove( 'error-bg' ) :
             $speakerAlias.classList.add( 'error-bg' );
-        speakerName ?
+        name ?
             $speakerName.classList.remove( 'error-bg' ) :
             $speakerName.classList.add( 'error-bg' );
 
@@ -61,5 +108,5 @@ class FormFieldsManager {
     };
 }
 
-const formFieldsManager = new FormFieldsManager();
-export default formFieldsManager;
+const formFieldsUtils = new FormFieldsUtils();
+export default formFieldsUtils;

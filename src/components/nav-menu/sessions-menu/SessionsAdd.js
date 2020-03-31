@@ -2,16 +2,18 @@ import React from "react";
 import ReactCircleColorPicker from "react-circle-color-picker";
 
 import IChangeSchStg from "../../../interfaces/IChangeSchStg";
+
 import Session from "../../../entities/settings/Session";
-import colorManager from "../../../utils/ColorManager";
-import formFieldsManager from "../../../utils/FormFieldsManager";
+
+import colorUtils from "../../../utils/ColorUtils";
+import formFieldsUtils from "../../../utils/FormFieldsUtils";
 
 class SessionsAdd extends React.Component {
 
     state = {
         alias: '',
         color: '',
-        colors: colorManager.getList(),
+        colors: colorUtils.getList(),
         name: ''
     };
 
@@ -28,6 +30,11 @@ class SessionsAdd extends React.Component {
         this._isMounted = false;
     }
 
+    /**
+     * Change handler
+     *
+     * @param event
+     */
     handleChange = ( event ) => {
         const
             name = event.target.name,
@@ -36,6 +43,12 @@ class SessionsAdd extends React.Component {
         this.setState( { [name]: val } );
     };
 
+    /**
+     * Color change handler
+     *
+     * @param event
+     * @return {Promise<void>}
+     */
     handleColorChange = async ( event ) => {
         await event.forEach( el => {
             if ( el.hex === this.state.color ) {
@@ -49,10 +62,13 @@ class SessionsAdd extends React.Component {
         });
     };
 
+    /**
+     * Add a session in schedule.settings.sessions
+     */
     addSession = () => {
-        if( formFieldsManager.checkAddSessionFields( this.state.name, this.state.alias, this.state.color ) ) {
+        if( formFieldsUtils.checkAddSessionFields( this.state.name, this.state.alias, this.state.color ) ) {
             const session = new Session( this.state.name, this.state.alias, this.state.color );
-            this.props.addSession( new IChangeSchStg(
+            this.props.changeScheduleSettings( new IChangeSchStg(
                 'addSession',
                 'sessions',
                 session
@@ -61,7 +77,7 @@ class SessionsAdd extends React.Component {
             this._isMounted && this.setState( {
                 alias: '',
                 color: '',
-                colors: colorManager.getList(),
+                colors: colorUtils.getList(),
                 name: '',
             });
         }

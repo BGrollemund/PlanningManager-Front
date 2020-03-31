@@ -1,3 +1,6 @@
+/**
+ * Infos schedule Object with all useful infos
+ */
 class Infos {
 
     constructor( name = '', start_date = new Date(), end_date = new Date(), days = {} ) {
@@ -7,18 +10,9 @@ class Infos {
         this.days = days;
     }
 
-    editName = ( name ) => {
-        this.name = name;
-    };
-
-    editStartDate = ( start_date_from_input ) => {
-        this.start_date = new Date( start_date_from_input );
-    };
-
-    editEndDate = ( end_date_from_input ) => {
-        this.end_date = new Date( end_date_from_input );
-    };
-
+    /**
+     * Init infos schedule
+     */
     init = () => {
         let
             current_date = new Date(),
@@ -38,7 +32,36 @@ class Infos {
             Samedi: false,
             Dimanche: false
         };
-    }
+    };
+
+    // Edit
+
+    /**
+     * Edit schedule name
+     *
+     * @param name
+     */
+    editName = ( name ) => {
+        this.name = name;
+    };
+
+    /**
+     * Edit schedule start date with the input date value
+     *
+     * @param start_date_from_input
+     */
+    editStartDate = ( start_date_from_input ) => {
+        this.start_date = new Date( start_date_from_input );
+    };
+
+    /**
+     * Edit schedule end date with the input date value
+     *
+     * @param end_date_from_input
+     */
+    editEndDate = ( end_date_from_input ) => {
+        this.end_date = new Date( end_date_from_input );
+    };
 }
 
 const schInfos = new Infos();

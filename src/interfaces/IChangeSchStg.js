@@ -1,3 +1,6 @@
+/**
+ * Interface for changeScheduleSettings params
+ */
 export default class IChangeSchStg {
 
     constructor( functionName = '', reactComponentName = '', data = {} ) {

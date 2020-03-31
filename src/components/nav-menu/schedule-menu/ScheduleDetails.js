@@ -1,6 +1,6 @@
 import React from "react";
 
-import dateManager from "../../../utils/DateManager";
+import dateUtils from "../../../utils/DateUtils";
 
 class ScheduleDetails extends React.Component {
 
@@ -8,6 +8,11 @@ class ScheduleDetails extends React.Component {
         infos: this.props.infos
     };
 
+    /**
+     * Change handler
+     *
+     * @param event
+     */
     handleChange = ( event ) => {
         const
             name = event.target.name,
@@ -20,6 +25,12 @@ class ScheduleDetails extends React.Component {
         this.props.update();
     };
 
+    /**
+     * Days change handler
+     *
+     * @param dayKey
+     * @param event
+     */
     handleDaysChange = ( dayKey, event ) => {
         let newScheduleInfos = this.state.infos;
         newScheduleInfos.days[dayKey] = event.target.checked;
@@ -29,7 +40,7 @@ class ScheduleDetails extends React.Component {
     };
 
     render() {
-        const daysList = dateManager.getDaysList();
+        const daysList = dateUtils.getDaysList();
 
         let daysInput = [];
 
@@ -59,14 +70,14 @@ class ScheduleDetails extends React.Component {
                         id="schedule_start_date"
                         onChange = { this.handleChange }
                         name="StartDate"
-                        value={ dateManager.formatForInput( this.state.infos.start_date ) }
+                        value={ dateUtils.formatForInput( this.state.infos.start_date ) }
                         type="date" />
                     <span> au : </span>
                     <input
                         id="schedule_end_date"
                         onChange = { this.handleChange }
                         name="EndDate"
-                        value={ dateManager.formatForInput( this.state.infos.end_date ) }
+                        value={ dateUtils.formatForInput( this.state.infos.end_date ) }
                         type="date" />
                 </div>
                 <div id="days">{ daysInput }</div>

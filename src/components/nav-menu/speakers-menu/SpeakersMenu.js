@@ -5,23 +5,15 @@ import SpeakersList from "./SpeakersList";
 
 class SpeakersMenu extends React.Component {
 
-    changeSpeakersList = ( data ) => {
-        this.props.changeSpeakersList( data );
-    };
-
-    update = () => {
-        this.props.update();
-    };
-
     render() {
         return (
             <div>
                 <SpeakersAdd
-                    addSpeaker={ this.changeSpeakersList } />
+                    changeScheduleSettings={ this.props.changeScheduleSettings } />
                 <SpeakersList
-                    removeSpeaker={ this.changeSpeakersList }
+                    changeScheduleSettings={ this.props.changeScheduleSettings }
                     speakers={ this.props.speakers }
-                    update={ this.update } />
+                    update={ this.props.update } />
             </div>
         );
     }

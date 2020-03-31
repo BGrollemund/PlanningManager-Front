@@ -4,16 +4,12 @@ import ScheduleDetails from "./ScheduleDetails";
 
 class ScheduleMenu extends React.Component {
 
-    update = () => {
-        this.props.update();
-    };
-
     render() {
         return (
             <div>
                 <ScheduleDetails
                     infos={ this.props.infos }
-                    update={ this.update } />
+                    update={ this.props.update } />
             </div>
         );
     }

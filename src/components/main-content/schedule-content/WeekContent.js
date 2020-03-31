@@ -1,13 +1,14 @@
 import React from "react";
 
-import dateManager from "../../../utils/DateManager";
 import DayContent from "./DayContent";
+
+import dateUtils from "../../../utils/DateUtils";
 
 class WeekContent extends React.Component {
 
     render() {
         const
-            daysList = dateManager.getDaysList(),
+            daysList = dateUtils.getDaysList(),
             daysListSelected = daysList.filter(
                 ( day )  => this.props.schedule.settings.infos.days[day]
             );
@@ -17,6 +18,7 @@ class WeekContent extends React.Component {
         days = Object.keys( daysListSelected ).map( key => (
             <DayContent
                 key={key}
+                changeScheduleData = { this.props.changeScheduleData }
                 daysListSelected = { daysListSelected }
                 numCol = { this.props.numCol }
                 numLine = { parseInt( key ) + 1 }

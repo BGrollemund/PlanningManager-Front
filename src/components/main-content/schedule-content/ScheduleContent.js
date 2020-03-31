@@ -1,28 +1,39 @@
 import React from "react";
 
-import config from "../../../config/app.config";
-
 import WeekContent from "./WeekContent";
-import dateManager from "../../../utils/DateManager";
+
+import dateUtils from "../../../utils/DateUtils";
 
 class ScheduleContent extends React.Component {
 
     state = {
-        numPage: 1
+        numPage: 1,
+        dayCellWidth: this.props.schedule.settings.preferences.dayCellWidth
     };
 
+    /**
+     * Show next schedule page
+     */
     pageNext = () => {
         this.setState( { numPage: this.state.numPage  + 1 } );
     };
 
+    /**
+     * Show previous schedule page
+     */
     pagePrevious = () => {
         this.setState( { numPage: this.state.numPage - 1 } )
     };
 
     render() {
+
+        let numWeeks = Math.floor(
+            ( window.innerWidth - 2 * this.props.schedule.settings.preferences.dayCellWidth ) /
+            this.props.schedule.settings.preferences.dayCellWidth
+        );
+
         const
-            numWeeks = config.paginator.numWeeks,
-            weeksList = dateManager.findWeeks(
+            weeksList = dateUtils.findWeeks(
                 this.props.schedule.settings.infos.start_date,
                 this.props.schedule.settings.infos.end_date
             ),
@@ -37,6 +48,7 @@ class ScheduleContent extends React.Component {
             weeks = Object.keys( weeksToShow ).map( key => (
                 <WeekContent
                     key={key}
+                    changeScheduleData={ this.props.changeScheduleData }
                     numCol = { parseInt( key ) + 1 }
                     schedule = { this.props.schedule }
                     weekInfos = { weeksToShow[key] } />

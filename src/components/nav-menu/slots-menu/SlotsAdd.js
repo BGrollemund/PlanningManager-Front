@@ -2,15 +2,15 @@ import React from "react";
 
 import IChangeSchStg from "../../../interfaces/IChangeSchStg";
 
-import Speaker from "../../../entities/settings/Speaker";
+import Slot from "../../../entities/settings/Slot";
 
 import formFieldsUtils from "../../../utils/FormFieldsUtils";
 
-class SpeakersAdd extends React.Component {
+class SlotsAdd extends React.Component {
 
     state = {
-        alias: '',
-        name: ''
+        start_time: '',
+        end_time: ''
     };
 
     constructor( props ) {
@@ -40,21 +40,21 @@ class SpeakersAdd extends React.Component {
     };
 
     /**
-     * Add a speaker in schedule.settings.speakers
+     * Add a slot in schedule.settings.slots
      */
-    addSpeaker = () => {
-        if( formFieldsUtils.checkAddSpeakerFields( this.state.name, this.state.alias ) ) {
-            const speaker = new Speaker( this.state.name, this.state.alias );
+    addSlot = () => {
+        if( formFieldsUtils.checkAddSlotFields( this.state.start_time, this.state.end_time  ) ) {
+            const slot = new Slot( this.state.start_time, this.state.end_time );
 
             this.props.changeScheduleSettings( new IChangeSchStg(
-                'addSpeaker',
-                'speakers',
-                speaker
+                'addSlot',
+                'slots',
+                slot
             ));
 
             this._isMounted && this.setState( {
-                alias: '',
-                name: ''
+                start_time: '',
+                end_time: ''
             });
         }
     };
@@ -63,31 +63,29 @@ class SpeakersAdd extends React.Component {
         return (
             <div className="content-menu">
                 <input
-                    id="speaker-name"
+                    id="slot-start-time"
                     onChange = { this.handleChange }
-                    name="name"
-                    placeholder= "Intervenant"
-                    value={ this.state.name }
-                    type="text" />
+                    name="start_time"
+                    value={ this.state.start_time }
+                    type="time" />
 
                 <input
-                    id="speaker-alias"
+                    id="slot-end-time"
                     onChange = { this.handleChange }
-                    name="alias"
-                    placeholder= "Abréviation"
-                    value={ this.state.alias }
-                    type="text" />
+                    name="end_time"
+                    value={ this.state.end_time }
+                    type="time" />
 
                 <input
                     className="green"
-                    onClick={ this.addSpeaker }
+                    onClick={ this.addSlot }
                     value="Ajouter"
                     type="button" />
 
-                <div className="error" id="speaker-error"></div>
+                <div className="error" id="slot-error"></div>
             </div>
         );
     }
 }
 
-export default SpeakersAdd;
+export default SlotsAdd;

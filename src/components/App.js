@@ -5,8 +5,10 @@ import Header from "./header/Header";
 import Footer from "./footer/Footer";
 import Main from "./main-content/Main";
 import Nav from "./nav-menu/Nav";
-import SpeakersMenu from "./nav-menu/speakers-menu/SpeakersMenu";
+import PreferencesMenu from "./nav-menu/preferences-menu/PreferencesMenu";
 import SessionsMenu from "./nav-menu/sessions-menu/SessionsMenu";
+import SlotsMenu from "./nav-menu/slots-menu/SlotsMenu";
+import SpeakersMenu from "./nav-menu/speakers-menu/SpeakersMenu";
 
 import sch from "../entities/Schedule";
 
@@ -16,6 +18,22 @@ class App extends React.Component {
         schedule: sch
     };
 
+    /**
+     * Edit data schedule
+     *
+     * @param data
+     */
+    changeScheduleData = ( data ) => {
+        this.update();
+
+        console.log(this.state.schedule);
+    };
+
+    /**
+     * Edit settings schedule
+     *
+     * @param data
+     */
     changeScheduleSettings = ( data ) => {
         ReactDom.unmountComponentAtNode( document.querySelector('#content-menu-box') );
         this.state.schedule[data.functionName]( data.data );
@@ -26,25 +44,44 @@ class App extends React.Component {
         this.update();
     };
 
+    /**
+     * Get React Component needed in nav menu
+     *
+     * @param reactComponentName
+     * @return {string|*}
+     */
     getMenuComponent = ( reactComponentName ) => {
         switch( reactComponentName ) {
+            case 'preferences': return <PreferencesMenu
+                                        changeScheduleSettings={ this.changeScheduleSettings }
+                                        preferences={ this.state.schedule.settings.preferences }
+                                        update={ this.update } />;
             case 'speakers': return <SpeakersMenu
-                                        changeSpeakersList={ this.changeScheduleSettings }
+                                        changeScheduleSettings={ this.changeScheduleSettings }
                                         speakers={ this.state.schedule.settings.speakers }
                                         update={ this.update } />;
             case 'sessions': return <SessionsMenu
-                                        changeSessionsList={ this.changeScheduleSettings }
+                                        changeScheduleSettings={ this.changeScheduleSettings }
                                         sessions={ this.state.schedule.settings.sessions }
+                                        update={ this.update } />;
+            case 'slots': return <SlotsMenu
+                                        changeScheduleSettings={ this.changeScheduleSettings }
+                                        slots={ this.state.schedule.settings.slots }
                                         update={ this.update } />;
             default: return '';
         }
     };
 
+    /**
+     * Update React Components
+     */
     update = () => {
         this.forceUpdate();
     };
 
     render() {
+        console.log( this.state.schedule );
+
         return (
             <div id="content">
                 <Header/>
@@ -53,6 +90,7 @@ class App extends React.Component {
                     scheduleSettings={ this.state.schedule.settings }
                     update={ this.update } />
                 <Main
+                    changeScheduleData={ this.changeScheduleData }
                     schedule={ this.state.schedule } />
                 <Footer/>
             </div>

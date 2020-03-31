@@ -1,9 +1,9 @@
 import React from "react";
-
 import ReactCircleColorPicker from "react-circle-color-picker";
 
 import IChangeSchStg from "../../../interfaces/IChangeSchStg";
-import colorManager from "../../../utils/ColorManager";
+
+import colorUtils from "../../../utils/ColorUtils";
 
 class SessionsList extends React.Component {
 
@@ -12,14 +12,12 @@ class SessionsList extends React.Component {
         sessions: this.props.sessions
     };
 
-    removeSession = ( key ) => {
-        this.props.removeSession( new IChangeSchStg(
-            'removeSession',
-            'sessions',
-            key
-        ));
-    };
-
+    /**
+     * Change handler
+     *
+     * @param key
+     * @param event
+     */
     handleChange = ( key, event ) => {
         const
             name = event.target.name,
@@ -32,6 +30,13 @@ class SessionsList extends React.Component {
         this.props.update();
     };
 
+    /**
+     * Color change handler
+     *
+     * @param key
+     * @param event
+     * @return {Promise<void>}
+     */
     handleColorChange = async ( key, event ) => {
         let newSessions = this.state.sessions;
 
@@ -51,6 +56,19 @@ class SessionsList extends React.Component {
         });
 
         this.props.update();
+    };
+
+    /**
+     * Remove a specified session in schedule.settings.sessions
+     *
+     * @param key
+     */
+    removeSession = ( key ) => {
+        this.props.changeScheduleSettings( new IChangeSchStg(
+            'removeSession',
+            'sessions',
+            key
+        ));
     };
 
     render() {
@@ -76,7 +94,7 @@ class SessionsList extends React.Component {
                     <div className="color-picker" id={ "session-color-"+key }>
                         <ReactCircleColorPicker
                             onChange={ this.handleColorChange.bind( this, key ) }
-                            colors={ colorManager.getListWithSelected( this.state.sessions[key].color ) } />
+                            colors={ colorUtils.getListWithSelected( this.state.sessions[key].color ) } />
                     </div>
 
                     <input

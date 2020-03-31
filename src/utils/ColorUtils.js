@@ -1,5 +1,10 @@
-class ColorManager {
+class ColorUtils {
 
+    /**
+     * Get an array of color in "react-circle-color-picker" format
+     *
+     * @return {({hex: string}|{hex: string}|{hex: string}|{hex: string}|{hex: string})[]}
+     */
     getList = () => {
         return [
             { "hex": "#FFFFFF" }, { "hex": "#FFFFF0" }, { "hex": "#F0E68C" },
@@ -11,6 +16,12 @@ class ColorManager {
         ];
     };
 
+    /**
+     * Get an array of color in "react-circle-color-picker" format with color selected
+     *
+     * @param color
+     * @return {{hex: string}[]}
+     */
     getListWithSelected = ( color ) => {
         let colors = this.getList();
         colors.forEach( el => {
@@ -21,5 +32,5 @@ class ColorManager {
     };
 }
 
-const colorManager = new ColorManager();
-export default colorManager;
+const colorUtils = new ColorUtils();
+export default colorUtils;

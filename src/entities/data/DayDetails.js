@@ -1,7 +1,9 @@
+/**
+ * Day details Object
+ */
 export default class DayDetails {
 
-    constructor( label = '', slots = {} ) {
-        this.label = label;
-        this.slots = slots;
+    addDaySlot = ( slotIndex, slotDetails ) => {
+        this[slotIndex] = slotDetails;
     }
 }

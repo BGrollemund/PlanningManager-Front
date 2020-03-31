@@ -1,4 +1,5 @@
 import React from "react";
+
 import IChangeSchStg from "../../../interfaces/IChangeSchStg";
 
 class SpeakersList extends React.Component {
@@ -7,14 +8,12 @@ class SpeakersList extends React.Component {
         speakers: this.props.speakers
     };
 
-    removeSpeaker = ( key ) => {
-        this.props.removeSpeaker( new IChangeSchStg(
-            'removeSpeaker',
-            'speakers',
-            key
-        ));
-    };
-
+    /**
+     * Change handler
+     *
+     * @param key
+     * @param event
+     */
     handleChange = ( key, event ) => {
         const
             name = event.target.name,
@@ -25,6 +24,19 @@ class SpeakersList extends React.Component {
 
         this.setState( { speakers: newSpeakers } );
         this.props.update();
+    };
+
+    /**
+     * Remove a specified speaker in schedule.settings.speakers
+     *
+     * @param key
+     */
+    removeSpeaker = ( key ) => {
+        this.props.changeScheduleSettings( new IChangeSchStg(
+            'removeSpeaker',
+            'speakers',
+            key
+        ));
     };
 
     render() {
