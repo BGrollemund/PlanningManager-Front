@@ -1,3 +1,5 @@
+import timeUtils from "../../utils/TimeUtils";
+
 /**
  * Slot Object
  */
@@ -30,6 +32,7 @@ export default class Slot {
      * Format slot in a user-friendly format
      */
     formatForUser = () => {
-        return 'De ' + this.start_time + ' à ' + this.end_time;
+        return 'De ' + timeUtils.formatForUser( this.start_time ) +
+            ' à ' + timeUtils.formatForUser( this.end_time );
     };
 }

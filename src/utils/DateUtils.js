@@ -4,6 +4,32 @@ import IWeekInfos from "../interfaces/IWeekInfos";
 class DateUtils {
 
     /**
+     * Find days in entire weeks between two dates
+     *
+     * @param start_date
+     * @param end_date
+     */
+    findDaysCompleteWeek = ( start_date, end_date ) => {
+        let
+            startDate = new Date( start_date ),
+            endDate = new Date( end_date ),
+            result = [];
+
+        if ( isNaN( startDate.getTime() ) || isNaN( endDate.getTime() ) ) return result;
+
+        startDate.setDate( startDate.getDate() - ( this.newGetDay( startDate ) - 1 ) );
+        endDate.setDate( endDate.getDate() + ( 7 - this.newGetDay( endDate ) ) );
+
+        do {
+            result.push( this.formatForInput( startDate ) );
+            startDate.setDate( startDate.getDate() + 1 );
+        }
+        while( startDate - endDate <= 0 );
+
+        return result;
+    };
+
+     /**
      * Find infos about a specified week
      *
      * @param monday

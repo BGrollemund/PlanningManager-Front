@@ -13,8 +13,8 @@ class Preferences {
     }
 
     init = () => {
-        this.dayCellHeight = 120;
-        this.dayCellWidth = 120;
+        this.dayCellHeight = 160;
+        this.dayCellWidth = 160;
         this.sessionsPerSlot = 2;
         this.speakersPerSlot = 2;
         this.mentionOption = true;

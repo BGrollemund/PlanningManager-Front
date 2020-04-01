@@ -217,10 +217,17 @@ ul {
 }
 
 .day-hover:hover {
+    position: relative;
     background: var(--white);
     border: 3px solid var(--gray-dark);
     cursor: pointer;
     transform: scale( 1.5 );
+    z-index: 2;
+}
+
+.day-infos-box {
+    height: 100%;
+    width: 100%;
 }
 
 .error {
@@ -253,7 +260,7 @@ ul {
     right: 0;
     top: 0;
     width: 100%;
-    z-index: 1;
+    z-index: 3;
 }
 
 .popup-inner {
@@ -268,7 +275,69 @@ ul {
     right: 10%;
     top: 5%;
     white-space:nowrap;
+    z-index: 3;
+}
+
+.session-infos {
+    font-size: 16px;
+    position: relative;
+    text-align: center;
+    z-index: 2;
+}
+
+    .group-infos {
+        font-size: 12px;
+        padding-right: 3px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 2;
+    }
+
+    .mention-infos {
+        color: var(--white);
+        font-size: 18px;
+        font-weight: 400;
+        left: 50%;
+        opacity: 0.4;
+        position: absolute;
+        top:50%;
+        text-shadow: black 1px 1px, black -1px 1px, black -1px -1px, black 1px -1px;
+        transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+        z-index: 1;
+    }
+
+    .start-time-infos {
+        font-size: 12px;
+        left: 0;
+        padding-left: 3px;
+        position: absolute;
+        top: 0;
+        z-index: 2;
+    }
+
+    .end-time-infos {
+        font-size: 12px;
+        bottom: 0;
+        left: 0;
+        padding-left: 3px;
+        position: absolute;
+        z-index: 2;
+    }
+
+.session-infos-box {
+    align-items: center;
+    border: 1px solid var(--white);
+    display: flex;
+    justify-content: center;
+    position: relative;
+    height: 100%;
     z-index: 1;
+}
+
+.slot-infos-box {
+    align-items: center;
+    display: flex;
 }
 
 .slot-name {

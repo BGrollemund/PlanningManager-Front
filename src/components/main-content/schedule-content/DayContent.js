@@ -1,6 +1,6 @@
 import React from "react";
 
-import DayInfos from "./DayInfos";
+import DayInfos from "./daysInfos/DayInfos";
 import Popup from "./popup/Popup";
 
 class DayContent extends React.Component {
@@ -58,7 +58,6 @@ class DayContent extends React.Component {
                 popup = <Popup
                             dayId={ dayId }
                             dayString={ dayString }
-                            changeScheduleData={ this.props.changeScheduleData }
                             closePopup={ this.closePopup }
                             schedule={ this.props.schedule } />;
         }

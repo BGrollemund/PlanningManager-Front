@@ -18,7 +18,6 @@ class WeekContent extends React.Component {
         days = Object.keys( daysListSelected ).map( key => (
             <DayContent
                 key={key}
-                changeScheduleData = { this.props.changeScheduleData }
                 daysListSelected = { daysListSelected }
                 numCol = { this.props.numCol }
                 numLine = { parseInt( key ) + 1 }

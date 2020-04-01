@@ -48,7 +48,6 @@ class ScheduleContent extends React.Component {
             weeks = Object.keys( weeksToShow ).map( key => (
                 <WeekContent
                     key={key}
-                    changeScheduleData={ this.props.changeScheduleData }
                     numCol = { parseInt( key ) + 1 }
                     schedule = { this.props.schedule }
                     weekInfos = { weeksToShow[key] } />

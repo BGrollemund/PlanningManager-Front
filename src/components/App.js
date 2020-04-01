@@ -19,17 +19,6 @@ class App extends React.Component {
     };
 
     /**
-     * Edit data schedule
-     *
-     * @param data
-     */
-    changeScheduleData = ( data ) => {
-        this.update();
-
-        console.log(this.state.schedule);
-    };
-
-    /**
      * Edit settings schedule
      *
      * @param data
@@ -76,6 +65,11 @@ class App extends React.Component {
      * Update React Components
      */
     update = () => {
+        this.state.schedule.initData();
+
+        if ( this.state.schedule.maxSessionsPerSlot < this.state.schedule.settings.preferences.sessionsPerSlot )
+            this.state.schedule.updateDataBySessionPerSlot();
+
         this.forceUpdate();
     };
 

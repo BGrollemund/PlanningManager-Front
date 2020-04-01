@@ -12,7 +12,6 @@ class Main extends React.Component {
                 <TitleContent
                     scheduleTitle={ this.props.schedule.settings.infos.name } />
                 <ScheduleContent
-                    changeScheduleData={ this.props.changeScheduleData }
                     schedule={ this.props.schedule } />
             </main>
         );

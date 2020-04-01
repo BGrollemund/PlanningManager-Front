@@ -7,7 +7,7 @@ class GroupNameSpan extends React.Component {
         let group = '';
 
         if ( this.props.sessionsPerSolt > 1 )
-            group = "Groupe " + ( this.props.sessionIndex + 1 ) + " : ";
+            group = "G" + ( this.props.sessionIndex + 1 );
 
         return (
             <span>
