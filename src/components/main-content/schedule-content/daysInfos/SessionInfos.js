@@ -29,35 +29,79 @@ class SessionInfos extends React.Component {
             timeEnd = '',
             timeStart = '';
 
-        if ( session ) {
-            background = session.color;
-            sessionAlias = session.alias;
-        }
+        if ( parseInt(this.props.sessionKey ) !== 0 &&
+                parseInt( this.props.schedule.data
+                            [this.props.dayId]
+                            [this.props.slotKey]
+                            [this.props.sessionKey].sessionKey ) === -1 ) {
 
-        speakerKeys.forEach( el => {
-            if ( settings.speakers[el] )
-                speakersAliasArr.push( settings.speakers[el].alias );
-        });
+            const
+                firstSession = settings.sessions[
+                    this.props.schedule.data
+                        [this.props.dayId]
+                        [this.props.slotKey]
+                        [0].sessionKey
+                    ],
+                firstSpeakerKeys = this.props.schedule.data
+                    [this.props.dayId]
+                    [this.props.slotKey]
+                    [0].speakerKeys;
 
-        if ( speakersAliasArr ) speakersAlias = speakersAliasArr.join( ' - ' );
+            if ( firstSession ) {
+                background = firstSession.color;
+                sessionAlias = firstSession.alias;
 
-        if ( sessionAlias || speakersAlias ) {
-            if ( settings.preferences.showGroup )
-                groupName = <GroupNameSpan
-                                sessionIndex={ this.props.sessionKey }
-                                sessionsPerSolt={ settings.preferences.sessionsPerSlot } />;
+                if ( settings.preferences.showGroup )
+                    groupName = <GroupNameSpan
+                        sessionIndex={ this.props.sessionKey }
+                        sessionsPerSolt={ settings.preferences.sessionsPerSlot } />;
 
-            if ( this.props.sessionKey === 0 && settings.preferences.showSlot ) {
-                timeEnd = timeUtils.formatForUser( settings.slots[this.props.slotKey].end_time );
-                timeStart = timeUtils.formatForUser( settings.slots[this.props.slotKey].start_time );
+                firstSpeakerKeys.forEach( el => {
+                    if ( settings.speakers[el] )
+                        speakersAliasArr.push( settings.speakers[el].alias );
+                });
+
+                if ( speakersAliasArr ) speakersAlias = speakersAliasArr.join( ' - ' );
+
+                if ( settings.preferences.mentionOption )
+                    mention = this.props.schedule.data
+                        [this.props.dayId]
+                        [this.props.slotKey]
+                        [0].mention;
             }
         }
+        else {
 
-        if ( settings.preferences.mentionOption )
-            mention = this.props.schedule.data
-                [this.props.dayId]
-                [this.props.slotKey]
-                [this.props.sessionKey].mention;
+            if ( session ) {
+                background = session.color;
+                sessionAlias = session.alias;
+            }
+
+            speakerKeys.forEach( el => {
+                if ( settings.speakers[el] )
+                    speakersAliasArr.push( settings.speakers[el].alias );
+            });
+
+            if ( speakersAliasArr ) speakersAlias = speakersAliasArr.join( ' - ' );
+
+            if ( sessionAlias || speakersAlias ) {
+                if ( this.props.sessionKey === 0 && settings.preferences.showSlot ) {
+                    timeEnd = timeUtils.formatForUser( settings.slots[this.props.slotKey].end_time );
+                    timeStart = timeUtils.formatForUser( settings.slots[this.props.slotKey].start_time );
+                }
+
+                if ( settings.preferences.showGroup  && this.props.slotWidth < 100 )
+                    groupName = <GroupNameSpan
+                        sessionIndex={ this.props.sessionKey }
+                        sessionsPerSolt={ settings.preferences.sessionsPerSlot } />;
+            }
+
+            if ( settings.preferences.mentionOption )
+                mention = this.props.schedule.data
+                    [this.props.dayId]
+                    [this.props.slotKey]
+                    [this.props.sessionKey].mention;
+        }
 
         const slotWidthStyle = {
             background: background,

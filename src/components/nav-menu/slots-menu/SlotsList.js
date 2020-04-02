@@ -45,7 +45,6 @@ class SlotsList extends React.Component {
         if( this.state.slots ) {
             slots = Object.keys( this.state.slots ).map( key => (
                 <div key={key} className="content-menu-list">
-
                     <input
                         id={ "slot-start-time-"+key }
                         onChange = { this.handleChange.bind( this, key ) }

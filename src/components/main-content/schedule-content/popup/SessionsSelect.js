@@ -1,4 +1,6 @@
 import React from "react";
+
+import MentionInput from "./MentionInput";
 import SpeakersSelect from "./SpeakersSelect";
 
 class SessionsSelect extends React.Component {
@@ -27,6 +29,8 @@ class SessionsSelect extends React.Component {
         const settings = this.props.schedule.settings;
 
         let
+            disabled = false,
+            noGroupOption = '',
             sessions = [],
             speakersList = [];
 
@@ -38,11 +42,22 @@ class SessionsSelect extends React.Component {
             ));
         }
 
+        if ( this.props.sessionIndex !== 0 ) {
+            noGroupOption = <option value="-1">Même activité que G1</option>;
+
+            if ( parseInt( this.state.data
+                [this.props.dayId]
+                [this.props.slotIndex]
+                [this.props.sessionIndex].sessionKey) === -1 ) disabled = true;
+        }
+
+
         for ( let i=0; i<settings.preferences.speakersPerSlot; i++ ) {
             speakersList.push(
                 <SpeakersSelect
                     key={i}
                     dayId={ this.props.dayId }
+                    disabled={ disabled }
                     sessionIndex={ this.props.sessionIndex }
                     slotIndex={ this.props.slotIndex }
                     speakerIndex={ i }
@@ -58,10 +73,17 @@ class SessionsSelect extends React.Component {
                                 [this.props.dayId]
                                 [this.props.slotIndex]
                                 [this.props.sessionIndex].sessionKey } >
+                    { noGroupOption }
                     <option value="">Pas d'activité</option>
                     { sessions }
                 </select>
                 { speakersList }
+                <MentionInput
+                    dayId={ this.props.dayId }
+                    disabled={ disabled }
+                    sessionIndex={ this.props.sessionIndex }
+                    slotIndex={ this.props.slotIndex }
+                    schedule={ this.props.schedule } />
             </span>
         );
     }

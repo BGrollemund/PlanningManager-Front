@@ -1,3 +1,9 @@
+// TODO: gestion des créneaux (proportionnalité, collision)
+// TODO: menu Stats
+// TODO: Login et sauvegarde quand loggé (BACK)
+// TODO: Menu admin (BACK)
+
+
 import React from "react";
 import ReactDom from "react-dom";
 import { BrowserRouter, Switch, Route } from "react-router-dom";

@@ -117,6 +117,10 @@ input {
     width: 200px;
 }
 
+    input:disabled {
+        opacity: 0.4;
+    }
+
 input[type="button"] {
     background: var(--gray);
     margin: 13px;
@@ -180,6 +184,10 @@ select {
     width : 200px;
 }
 
+    select:disabled {
+        opacity: 0.4;
+    }
+
 ul {
     list-style: none;
 }
@@ -230,6 +238,15 @@ ul {
     width: 100%;
 }
 
+.end-time-infos {
+    font-size: 12px;
+    bottom: 0;
+    left: 0;
+    padding-left: 3px;
+    position: absolute;
+    z-index: 2;
+}
+
 .error {
     color: var(--red);
     font-weight: 700;
@@ -243,8 +260,30 @@ ul {
     flex-grow: 1;
 }
 
+.group-infos {
+    font-size: 12px;
+    padding-right: 3px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 2;
+}
+
 .input-days-list {
     display: inline;
+}
+
+.mention-infos {
+    color: var(--white);
+    font-size: 18px;
+    font-weight: 400;
+    left: 50%;
+    opacity: 0.4;
+    position: absolute;
+    top:50%;
+    text-shadow: black 1px 1px, black -1px 1px, black -1px -1px, black 1px -1px;
+    transform: translateX(-50%) translateY(-50%) rotate(-45deg);
+    z-index: 1;
 }
 
 .paginator-schedule {
@@ -285,46 +324,6 @@ ul {
     z-index: 2;
 }
 
-    .group-infos {
-        font-size: 12px;
-        padding-right: 3px;
-        position: absolute;
-        right: 0;
-        top: 0;
-        z-index: 2;
-    }
-
-    .mention-infos {
-        color: var(--white);
-        font-size: 18px;
-        font-weight: 400;
-        left: 50%;
-        opacity: 0.4;
-        position: absolute;
-        top:50%;
-        text-shadow: black 1px 1px, black -1px 1px, black -1px -1px, black 1px -1px;
-        transform: translateX(-50%) translateY(-50%) rotate(-45deg);
-        z-index: 1;
-    }
-
-    .start-time-infos {
-        font-size: 12px;
-        left: 0;
-        padding-left: 3px;
-        position: absolute;
-        top: 0;
-        z-index: 2;
-    }
-
-    .end-time-infos {
-        font-size: 12px;
-        bottom: 0;
-        left: 0;
-        padding-left: 3px;
-        position: absolute;
-        z-index: 2;
-    }
-
 .session-infos-box {
     align-items: center;
     border: 1px solid var(--white);
@@ -343,5 +342,14 @@ ul {
 .slot-name {
     font-size: 16px;
     padding: 20px 0 10px  26px;
+}
+
+.start-time-infos {
+    font-size: 12px;
+    left: 0;
+    padding-left: 3px;
+    position: absolute;
+    top: 0;
+    z-index: 2;
 }
 

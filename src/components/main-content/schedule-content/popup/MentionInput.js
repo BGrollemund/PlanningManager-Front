@@ -28,6 +28,7 @@ class MentionInput extends React.Component {
 
         if ( this.props.schedule.settings.preferences.mentionOption )
             mention = <input
+                            disabled={ this.props.disabled }
                             onChange={ this.handleMentionChange }
                             placeholder="mention"
                             value={ this.state.data

@@ -10,18 +10,43 @@ class SlotInfos extends React.Component {
             slotHeightStyle = { height: this.props.slotHeight + '%' },
             slotWidth= 1 / ( settings.preferences.sessionsPerSlot ) * 100;
 
-        let sessions = [];
+        let
+            groupOption = false,
+            sessions = [];
 
-        for ( let i=0; i<settings.preferences.sessionsPerSlot; i++ ) {
+        for ( let i=1; i<settings.preferences.sessionsPerSlot; i++ ) {
+            if ( parseInt( this.props.schedule.data
+                                [this.props.dayId]
+                                [this.props.slotKey]
+                                [i].sessionKey ) !== -1 ) {
+                groupOption = true;
+                break;
+            }
+        }
+
+        if ( ! groupOption ) {
             sessions.push(
                 <SessionInfos
-                    key={i}
+                    key={0}
                     dayId={ this.props.dayId }
-                    sessionKey={ i }
+                    sessionKey={ 0 }
                     slotKey={ this.props.slotKey }
-                    slotWidth={ slotWidth }
+                    slotWidth={ 100 }
                     schedule={ this.props.schedule } />
             );
+        }
+        else {
+            for ( let i=0; i<settings.preferences.sessionsPerSlot; i++ ) {
+                sessions.push(
+                    <SessionInfos
+                        key={i}
+                        dayId={ this.props.dayId }
+                        sessionKey={ i }
+                        slotKey={ this.props.slotKey }
+                        slotWidth={ slotWidth }
+                        schedule={ this.props.schedule } />
+                );
+            }
         }
 
         return (

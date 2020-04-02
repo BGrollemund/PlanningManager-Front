@@ -37,6 +37,7 @@ class SpeakersSelect extends React.Component {
 
         return (
             <select
+                disabled={ this.props.disabled }
                 onChange={ this.handleSpeakerChange }
                 value={ this.state.data
                             [this.props.dayId]

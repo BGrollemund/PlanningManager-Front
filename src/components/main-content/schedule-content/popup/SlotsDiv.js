@@ -1,7 +1,7 @@
 import React from "react";
-import SessionsSelect from "./SessionsSelect";
-import MentionInput from "./MentionInput";
+
 import GroupNameSpan from "./GroupNameSpan";
+import SessionsSelect from "./SessionsSelect";
 
 class SlotsDiv extends React.Component {
 
@@ -18,11 +18,6 @@ class SlotsDiv extends React.Component {
                         sessionIndex={ i }
                         sessionsPerSolt={ settings.preferences.sessionsPerSlot } />
                     <SessionsSelect
-                        dayId={ this.props.dayId }
-                        sessionIndex={ i }
-                        slotIndex={ this.props.slotIndex }
-                        schedule={ this.props.schedule } />
-                    <MentionInput
                         dayId={ this.props.dayId }
                         sessionIndex={ i }
                         slotIndex={ this.props.slotIndex }
