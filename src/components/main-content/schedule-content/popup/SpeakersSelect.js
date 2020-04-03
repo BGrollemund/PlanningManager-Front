@@ -19,6 +19,7 @@ class SpeakersSelect extends React.Component {
             [this.props.sessionIndex].speakerKeys[this.props.speakerIndex] = event.target.value;
 
         this.setState( { data: newData } );
+        this.props.changeData();
     };
 
     render() {

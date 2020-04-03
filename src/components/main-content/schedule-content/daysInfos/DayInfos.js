@@ -2,25 +2,26 @@ import React from "react";
 
 import SlotInfos from "./SlotInfos";
 
+import timeUtils from "../../../../utils/TimeUtils";
+
 class DayInfos extends React.Component {
 
     render() {
-
         const
             settings = this.props.schedule.settings,
-            slotHeight= 1 / ( Object.keys( settings.slots ).length ) * 100;
+            slotsSorted = timeUtils.findSlotsInfos( settings.slots );
 
         let
             slots = '';
 
         if ( settings.slots ) {
-            slots = Object.keys( settings.slots ).map( key => (
+            slots = Object.keys( slotsSorted ).map( key => (
                 <SlotInfos
                     key={key}
                     dayId={ this.props.dayId }
-                    slot={ settings.slots[key] }
-                    slotHeight={ slotHeight }
-                    slotKey={ key }
+                    slotHeight={ slotsSorted[key].heightPerCent }
+                    slotKey={ slotsSorted[key][0] }
+                    slotTop={ slotsSorted[key].topPerCent }
                     schedule={ this.props.schedule } />
             ));
         }

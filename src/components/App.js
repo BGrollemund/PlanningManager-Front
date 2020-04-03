@@ -9,6 +9,7 @@ import PreferencesMenu from "./nav-menu/preferences-menu/PreferencesMenu";
 import SessionsMenu from "./nav-menu/sessions-menu/SessionsMenu";
 import SlotsMenu from "./nav-menu/slots-menu/SlotsMenu";
 import SpeakersMenu from "./nav-menu/speakers-menu/SpeakersMenu";
+import Stats from "./stats-menu/Stats";
 
 import sch from "../entities/Schedule";
 
@@ -74,8 +75,6 @@ class App extends React.Component {
     };
 
     render() {
-        console.log( this.state.schedule );
-
         return (
             <div id="content">
                 <Header/>
@@ -86,6 +85,7 @@ class App extends React.Component {
                 <Main
                     changeScheduleData={ this.changeScheduleData }
                     schedule={ this.state.schedule } />
+                <Stats/>
                 <Footer/>
             </div>
         );

@@ -4,10 +4,13 @@ import SessionInfos from "./SessionInfos";
 class SlotInfos extends React.Component {
 
     render() {
-
         const
             settings = this.props.schedule.settings,
-            slotHeightStyle = { height: this.props.slotHeight + '%' },
+            slotStyle = {
+                            height: this.props.slotHeight + '%',
+                            top: this.props.slotTop + '%',
+                            width: '100%'
+                        },
             slotWidth= 1 / ( settings.preferences.sessionsPerSlot ) * 100;
 
         let
@@ -50,7 +53,7 @@ class SlotInfos extends React.Component {
         }
 
         return (
-            <div style={ slotHeightStyle } className="slot-infos-box">
+            <div style={ slotStyle } className="slot-infos-box">
                 { sessions }
             </div>
         );

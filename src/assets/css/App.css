@@ -235,7 +235,9 @@ ul {
 
 .day-infos-box {
     height: 100%;
+    position: relative;
     width: 100%;
+    z-index: 1;
 }
 
 .end-time-infos {
@@ -326,7 +328,6 @@ ul {
 
 .session-infos-box {
     align-items: center;
-    border: 1px solid var(--white);
     display: flex;
     justify-content: center;
     position: relative;
@@ -334,9 +335,28 @@ ul {
     z-index: 1;
 }
 
+.slot-content-box {
+    position: relative;
+    z-index: 1;
+}
+
 .slot-infos-box {
     align-items: center;
     display: flex;
+    position: absolute;
+    z-index: 1;
+}
+
+.slot-mask {
+    background-color: rgba( 0, 0, 0, 0.2);
+    bottom: 0;
+    height: 90%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 10%;
+    width: 100%;
+    z-index: 1;
 }
 
 .slot-name {

@@ -22,6 +22,7 @@ class SessionsSelect extends React.Component {
             [this.props.sessionIndex].sessionKey = event.target.value;
 
         this.setState( { data: newData } );
+        this.props.changeData();
     };
 
     render() {
@@ -56,6 +57,7 @@ class SessionsSelect extends React.Component {
             speakersList.push(
                 <SpeakersSelect
                     key={i}
+                    changeData={ this.props.changeData }
                     dayId={ this.props.dayId }
                     disabled={ disabled }
                     sessionIndex={ this.props.sessionIndex }
@@ -80,6 +82,7 @@ class SessionsSelect extends React.Component {
                 { speakersList }
                 <MentionInput
                     dayId={ this.props.dayId }
+                    changeData={ this.props.changeData }
                     disabled={ disabled }
                     sessionIndex={ this.props.sessionIndex }
                     slotIndex={ this.props.slotIndex }

@@ -20,6 +20,7 @@ class MentionInput extends React.Component {
             [this.props.sessionIndex].mention = event.target.value;
 
         this.setState( { data: newData } );
+        this.props.changeData();
     };
 
     render() {

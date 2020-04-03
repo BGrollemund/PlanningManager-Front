@@ -86,7 +86,6 @@ class Nav extends React.Component {
             this.onNavBtnClick(
                 event.target,
                 <PreferencesMenu
-                    changeScheduleSettings={ this.props.changeScheduleSettings }
                     preferences={ this.props.scheduleSettings.preferences }
                     update={ this.props.update } />
                 );

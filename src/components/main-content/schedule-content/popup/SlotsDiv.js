@@ -6,10 +6,11 @@ import SessionsSelect from "./SessionsSelect";
 class SlotsDiv extends React.Component {
 
     render() {
-
         const settings = this.props.schedule.settings;
 
-        let sessionsList = [];
+        let
+            mask = '',
+            sessionsList = [];
 
         for ( let i=0; i<settings.preferences.sessionsPerSlot; i++ ) {
             sessionsList.push(
@@ -18,6 +19,7 @@ class SlotsDiv extends React.Component {
                         sessionIndex={ i }
                         sessionsPerSolt={ settings.preferences.sessionsPerSlot } />
                     <SessionsSelect
+                        changeData={ this.props.changeData }
                         dayId={ this.props.dayId }
                         sessionIndex={ i }
                         slotIndex={ this.props.slotIndex }
@@ -26,14 +28,17 @@ class SlotsDiv extends React.Component {
             );
         }
 
+        if ( this.props.showMask ) mask = <div className="slot-mask"></div>;
+
         return (
-            <div>
+            <div className="slot-content-box">
                 <div className="slot-name">
                     { settings.slots[ this.props.slotIndex ].formatForUser() }
                 </div>
                 <div>
                     { sessionsList }
                 </div>
+                { mask }
             </div>
         );
     }
