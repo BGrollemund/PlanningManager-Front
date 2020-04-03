@@ -21,6 +21,7 @@ class SessionInfos extends React.Component {
 
         let
             background = '',
+            border = '',
             groupName = '',
             mention = '',
             sessionAlias = '',
@@ -74,6 +75,7 @@ class SessionInfos extends React.Component {
 
             if ( session ) {
                 background = session.color;
+                border = '1px solid var(--white)';
                 sessionAlias = session.alias;
             }
 
@@ -105,6 +107,7 @@ class SessionInfos extends React.Component {
 
         const slotWidthStyle = {
             background: background,
+            border: border,
             width: this.props.slotWidth + '%' };
 
         return (
