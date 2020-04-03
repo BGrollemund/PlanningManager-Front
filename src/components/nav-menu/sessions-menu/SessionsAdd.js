@@ -1,8 +1,6 @@
 import React from "react";
 import ReactCircleColorPicker from "react-circle-color-picker";
 
-import IChangeSchStg from "../../../interfaces/IChangeSchStg";
-
 import Session from "../../../entities/settings/Session";
 
 import colorUtils from "../../../utils/ColorUtils";
@@ -68,11 +66,12 @@ class SessionsAdd extends React.Component {
     addSession = () => {
         if( formFieldsUtils.checkAddSessionFields( this.state.name, this.state.alias, this.state.color ) ) {
             const session = new Session( this.state.name, this.state.alias, this.state.color );
-            this.props.changeScheduleSettings( new IChangeSchStg(
-                'addSession',
-                'sessions',
-                session
-            ));
+
+            this.props.changeScheduleSettings( {
+                functionName: 'addSession',
+                reactComponentName: 'sessions',
+                data: session
+            });
 
             this._isMounted && this.setState( {
                 alias: '',

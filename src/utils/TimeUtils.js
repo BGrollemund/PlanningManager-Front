@@ -25,6 +25,7 @@ class TimeUtils {
             totalDuration = 0,
             totalSlots = [];
 
+        // Convert slot times in numerical value (minutes)
         sortedSlots.forEach( el => {
             numericSlots.push( {
                 start_time: this.convertNumeric( el[1].start_time ),
@@ -34,6 +35,7 @@ class TimeUtils {
 
         let lastIndex = 0;
 
+        // Group slots when necessary
         for( let i=0; i<numericSlots.length; i++ ) {
             if ( totalSlots.length <= 0 ) {
                 totalSlots.push( {
@@ -56,10 +58,12 @@ class TimeUtils {
             }
         }
 
+        // Calculate duration (excluding time not in slots)
         totalSlots.forEach( el => {
             totalDuration += ( el.end_time - el.start_time );
         });
 
+        // Calculate place and size of each slot in a day
         if ( totalDuration > 0 ) {
             for ( let i=0; i<sortedSlots.length; i++ ) {
                 sortedSlots[i].heightPerCent = ( ( numericSlots[i].end_time - numericSlots[i].start_time ) / totalDuration ) * 100;
@@ -92,7 +96,6 @@ class TimeUtils {
         let result = [];
 
         Object.entries( slots ).forEach( el => {
-
             const
                 isAfter =   el[1].start_time === slot.end_time ||
                             ( el[1].start_time ).localeCompare( slot.end_time ) > 0,
@@ -136,6 +139,7 @@ class TimeUtils {
             if (    el[1].start_time !== el[1].end_time &&
                     ( el[1].start_time ).localeCompare( el[1].end_time ) < 0 ) {
 
+                // Check if the slot does not exist already
                 result.forEach( resultEl => {
                     if (    resultEl[1].start_time === el[1].start_time &&
                             resultEl[1].end_time === el[1].end_time )

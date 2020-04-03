@@ -1,7 +1,5 @@
 import React from "react";
 
-import IChangeSchStg from "../../../interfaces/IChangeSchStg";
-
 class SlotsList extends React.Component {
 
     state = {
@@ -32,11 +30,11 @@ class SlotsList extends React.Component {
      * @param key
      */
     removeSlot = ( key ) => {
-        this.props.changeScheduleSettings( new IChangeSchStg(
-            'removeSlot',
-            'slots',
-            key
-        ));
+        this.props.changeScheduleSettings( {
+            functionName: 'removeSlot',
+            reactComponentName: 'slots',
+            data: key
+        });
     };
 
     render() {

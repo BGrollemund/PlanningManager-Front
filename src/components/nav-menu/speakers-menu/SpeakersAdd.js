@@ -1,7 +1,5 @@
 import React from "react";
 
-import IChangeSchStg from "../../../interfaces/IChangeSchStg";
-
 import Speaker from "../../../entities/settings/Speaker";
 
 import formFieldsUtils from "../../../utils/FormFieldsUtils";
@@ -46,11 +44,11 @@ class SpeakersAdd extends React.Component {
         if( formFieldsUtils.checkAddSpeakerFields( this.state.name, this.state.alias ) ) {
             const speaker = new Speaker( this.state.name, this.state.alias );
 
-            this.props.changeScheduleSettings( new IChangeSchStg(
-                'addSpeaker',
-                'speakers',
-                speaker
-            ));
+            this.props.changeScheduleSettings( {
+                functionName: 'addSpeaker',
+                reactComponentName: 'speakers',
+                data: speaker
+            });
 
             this._isMounted && this.setState( {
                 alias: '',

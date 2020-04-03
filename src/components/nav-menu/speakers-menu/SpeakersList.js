@@ -1,7 +1,5 @@
 import React from "react";
 
-import IChangeSchStg from "../../../interfaces/IChangeSchStg";
-
 class SpeakersList extends React.Component {
 
     state = {
@@ -32,11 +30,11 @@ class SpeakersList extends React.Component {
      * @param key
      */
     removeSpeaker = ( key ) => {
-        this.props.changeScheduleSettings( new IChangeSchStg(
-            'removeSpeaker',
-            'speakers',
-            key
-        ));
+        this.props.changeScheduleSettings( {
+            functionName: 'removeSpeaker',
+            reactComponentName: 'speakers',
+            data: key
+        });
     };
 
     render() {

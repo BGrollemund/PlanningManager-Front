@@ -1,6 +1,3 @@
-import IDayInfos from "../interfaces/IDayInfos";
-import IWeekInfos from "../interfaces/IWeekInfos";
-
 class DateUtils {
 
     /**
@@ -34,7 +31,7 @@ class DateUtils {
      *
      * @param monday
      * @param sunday
-     * @return {IWeekInfos}
+     * @return {{weekString: string, daysInfos: {}}}
      */
     findWeekInfos = ( monday, sunday ) => {
         let daysInfos = {};
@@ -43,16 +40,16 @@ class DateUtils {
             let newDate = new Date( monday );
             newDate.setDate( monday.getDate() + i );
 
-            daysInfos[ this.getDaysList()[i] ] = new IDayInfos(
-                this.getDaysList()[i] + ' ' + this.formatForUser( newDate ),
-                this.formatForInput( newDate )
-            );
+            daysInfos[ this.getDaysList()[i] ] = {
+                dayString : this.getDaysList()[i] + ' ' + this.formatForUser( newDate ),
+                dayId: this.formatForInput( newDate )
+            };
         }
 
-        return new IWeekInfos(
-            this.formatWeekString( monday, sunday ),
-            daysInfos
-        );
+        return {
+            weekString: this.formatWeekString( monday, sunday ),
+            daysInfos: daysInfos
+        };
     };
 
     /**

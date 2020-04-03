@@ -1,7 +1,5 @@
 import React from "react";
 
-import IChangeSchStg from "../../../interfaces/IChangeSchStg";
-
 import Slot from "../../../entities/settings/Slot";
 
 import formFieldsUtils from "../../../utils/FormFieldsUtils";
@@ -46,11 +44,11 @@ class SlotsAdd extends React.Component {
         if( formFieldsUtils.checkAddSlotFields( this.state.start_time, this.state.end_time  ) ) {
             const slot = new Slot( this.state.start_time, this.state.end_time );
 
-            this.props.changeScheduleSettings( new IChangeSchStg(
-                'addSlot',
-                'slots',
-                slot
-            ));
+            this.props.changeScheduleSettings( {
+                functionName: 'addSlot',
+                reactComponentName: 'slots',
+                data: slot
+            });
 
             this._isMounted && this.setState( {
                 start_time: '',

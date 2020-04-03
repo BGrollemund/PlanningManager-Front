@@ -198,6 +198,16 @@ ul {
     margin-left: 13px;
 }
 
+.content-day {
+    align-items: center;
+    border: 1px solid var(--black);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 6px 0;
+    padding: 3px;
+}
+
 .content-menu {
     padding: 26px;
 }
@@ -211,16 +221,6 @@ ul {
 }
 
 .content-week {
-    padding: 3px;
-}
-
-.content-day {
-    align-items: center;
-    border: 1px solid var(--black);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 6px 0;
     padding: 3px;
 }
 

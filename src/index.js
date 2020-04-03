@@ -1,4 +1,3 @@
-// TODO: gestion des créneaux (proportionnalité, collision)
 // TODO: menu Stats
 // TODO: Login et sauvegarde quand loggé (BACK)
 // TODO: Menu admin (BACK)

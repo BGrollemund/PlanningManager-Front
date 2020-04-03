@@ -83,7 +83,6 @@ class App extends React.Component {
                     scheduleSettings={ this.state.schedule.settings }
                     update={ this.update } />
                 <Main
-                    changeScheduleData={ this.changeScheduleData }
                     schedule={ this.state.schedule } />
                 <Stats/>
                 <Footer/>

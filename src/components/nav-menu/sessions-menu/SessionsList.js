@@ -1,8 +1,6 @@
 import React from "react";
 import ReactCircleColorPicker from "react-circle-color-picker";
 
-import IChangeSchStg from "../../../interfaces/IChangeSchStg";
-
 import colorUtils from "../../../utils/ColorUtils";
 
 class SessionsList extends React.Component {
@@ -64,11 +62,11 @@ class SessionsList extends React.Component {
      * @param key
      */
     removeSession = ( key ) => {
-        this.props.changeScheduleSettings( new IChangeSchStg(
-            'removeSession',
-            'sessions',
-            key
-        ));
+        this.props.changeScheduleSettings( {
+            functionName: 'removeSession',
+            reactComponentName: 'sessions',
+            data: key
+        });
     };
 
     render() {

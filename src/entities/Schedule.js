@@ -7,6 +7,7 @@ import schData from "./data/Data";
 import DayDetails from "./data/DayDetails";
 import SlotDetails from "./data/SlotDetails";
 import SessionDetails from "./data/SessionDetails";
+
 import dateUtils from "../utils/DateUtils";
 
 /**

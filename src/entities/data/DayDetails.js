@@ -7,6 +7,12 @@ export default class DayDetails {
         this[slotIndex] = slotDetails;
     };
 
+    /**
+     * Check if a specified slot is empty
+     *
+     * @param slotIndex
+     * @return {boolean}
+     */
     isEmpty = ( slotIndex ) => {
         let result = true;
 
