@@ -28,8 +28,8 @@ class ScheduleContent extends React.Component {
     render() {
 
         let numWeeks = Math.floor(
-            ( window.innerWidth - 2 * this.props.schedule.settings.preferences.dayCellWidth ) /
-            this.props.schedule.settings.preferences.dayCellWidth
+            ( window.innerWidth - 106 ) /
+            ( parseInt( this.props.schedule.settings.preferences.dayCellWidth ) + 7 )
         );
 
         const

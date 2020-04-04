@@ -41,10 +41,19 @@ class DayContent extends React.Component {
         if ( this.props.numLine === 0 ) {
             dayContent = this.props.weekInfos.weekString;
             dayId = "week-" + this.props.numCol;
+            style.background = 'var(--gray-light)';
+            style.height = '40px';
+
+            if ( this.props.numCol === 0 ) {
+                style.background = 'var(--gray)';
+                style.width = '70px';
+            }
         }
         else if ( this.props.numCol === 0 ) {
             dayContent = this.props.daysListSelected[ this.props.numLine - 1 ];
             dayId = "days-" + this.props.numLine;
+            style.background = 'var(--gray-light)';
+            style.width = '70px';
         }
         else {
             cursor = "day-hover";
