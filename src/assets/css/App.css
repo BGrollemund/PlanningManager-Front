@@ -348,7 +348,7 @@ ul {
 }
 
 .slot-mask {
-    background-color: rgba( 0, 0, 0, 0.2);
+    background-color: transparent;
     bottom: 0;
     height: 90%;
     left: 0;
@@ -358,6 +358,10 @@ ul {
     width: 100%;
     z-index: 1;
 }
+
+    .slot-mask ~ div {
+        opacity: 0.4;
+    }
 
 .slot-name {
     font-size: 16px;

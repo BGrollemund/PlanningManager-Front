@@ -32,13 +32,13 @@ class SlotsDiv extends React.Component {
 
         return (
             <div className="slot-content-box">
+                { mask }
                 <div className="slot-name">
                     { settings.slots[ this.props.slotIndex ].formatForUser() }
                 </div>
                 <div>
                     { sessionsList }
                 </div>
-                { mask }
             </div>
         );
     }
