@@ -15,18 +15,31 @@ class StatsSpeakers extends React.Component {
             total = [];
 
 
-        total = Object.keys( speakersStats.total ).map( key => (
-            <span key={key} className="stats-list-span">
-                G{ parseInt(key) + 1 } : { timeUtils.convertString( speakersStats.total[key] ) }
-            </span>
-        ));
-
-        Object.keys( speakersStats.details ).forEach( keySp => {
-            spanTotalDetails[keySp] = Object.keys( speakersStats.details[keySp].total ).map( key_ => (
-                <span key={key_} className="stats-list-span">
-                    G{ parseInt(key_) + 1 } : { timeUtils.convertString( speakersStats.details[keySp].total[key_] ) }
+        if( this.props.stats.infos.sessionsPerSlot <= 1 ) {
+            total =
+                <span key={0} className="stats-list-span">
+                    { timeUtils.convertString( speakersStats.total[0] ) }
+                </span>;
+        }
+        else {
+            total = Object.keys( speakersStats.total ).map( key => (
+                <span key={key} className="stats-list-span">
+                    G{ parseInt(key) + 1 } : { timeUtils.convertString( speakersStats.total[key] ) }
                 </span>
             ));
+        }
+
+        Object.keys( speakersStats.details ).forEach( keySp => {
+            if( this.props.stats.infos.sessionsPerSlot <= 1 ) {
+                spanTotalDetails[keySp] = '';
+            }
+            else {
+                spanTotalDetails[keySp] = Object.keys( speakersStats.details[keySp].total ).map( key_ => (
+                    <span key={key_} className="stats-list-span">
+                        G{ parseInt(key_) + 1 } : { timeUtils.convertString( speakersStats.details[keySp].total[key_] ) }
+                    </span>
+                ));
+            }
 
             Object.keys( speakersStats.details[keySp].sessions ).forEach( keySe => {
                 if( Object.entries( speakersStats.details[keySp].sessions[keySe] ).every(

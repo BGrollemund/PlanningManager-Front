@@ -16,8 +16,8 @@ class StatsSessions extends React.Component {
             total = [];
 
         // Check if all groups totals are the same
-        if( Object.entries( sessionsStats.total ).every(
-            ( value, key , array ) => value[1] === array[0][1]  ) ) {
+        if( Object.entries( sessionsStats.total ).every(( value, key , array ) =>
+            value[1] === array[0][1]  ) ) {
                 total =
                     <span className="stats-list-span">
                         { timeUtils.convertString( sessionsStats.total[0] ) }
@@ -48,11 +48,16 @@ class StatsSessions extends React.Component {
             }
 
             Object.keys( sessionsStats.details[keySe].speakers ).forEach( key_ => {
-                spanSpeakersDetails[key_] = Object.keys( sessionsStats.details[keySe].speakers[key_] ).map( key__ => (
-                    <span key={key__} className="stats-list-span">
-                        G{ parseInt(key__) + 1 } : { timeUtils.convertString( sessionsStats.details[keySe].speakers[key_][key__] ) }
-                    </span>
-                ));
+                if( this.props.stats.infos.sessionsPerSlot <= 1 ) {
+                    spanSpeakersDetails[key_] = '';
+                }
+                else {
+                    spanSpeakersDetails[key_] = Object.keys( sessionsStats.details[keySe].speakers[key_] ).map( key__ => (
+                        <span key={key__} className="stats-list-span">
+                            G{ parseInt(key__) + 1 } : { timeUtils.convertString( sessionsStats.details[keySe].speakers[key_][key__] ) }
+                        </span>
+                    ));
+                }
             });
 
             speakersDetails[keySe] = Object.keys( sessionsStats.details[keySe].speakers ).map( keySp => {
