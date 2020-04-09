@@ -5,34 +5,23 @@ import timeUtils from "../../utils/TimeUtils";
  */
 export default class Slot {
 
-    constructor( start_time = '', end_time = '' ) {
-        this.start_time = start_time;
-        this.end_time = end_time;
+    constructor( startTime = '', endTime = '' ) {
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
-
-    /**
-     * Edit slot start time
-     *
-     * @param start_time
-     */
-    editStartTime = ( start_time ) => {
-        this.start_time = start_time;
-    };
-
-    /**
-     * Edit slot end time
-     *
-     * @param end_time
-     */
-    editEndTime = ( end_time ) => {
-        this.end_time = end_time;
-    };
 
     /**
      * Format slot in a user-friendly format
      */
     formatForUser = () => {
-        return 'De ' + timeUtils.formatForUser( this.start_time ) +
-            ' à ' + timeUtils.formatForUser( this.end_time );
+        return 'De ' + timeUtils.formatForUser( this.startTime ) +
+            ' à ' + timeUtils.formatForUser( this.endTime );
     };
+
+    /**
+     * Get the slot duration
+     */
+    getDuration = () => {
+        return timeUtils.diffNumeric( this.startTime, this.endTime );
+    }
 }

@@ -15,19 +15,6 @@ class SessionsAdd extends React.Component {
         name: ''
     };
 
-    constructor( props ) {
-        super( props );
-        this._isMounted = false;
-    }
-
-    componentDidMount() {
-        this._isMounted = true;
-    }
-
-    componentWillUnmount() {
-        this._isMounted = false;
-    }
-
     /**
      * Change handler
      *
@@ -64,21 +51,21 @@ class SessionsAdd extends React.Component {
      * Add a session in schedule.settings.sessions
      */
     addSession = () => {
-        if( formFieldsUtils.checkAddSessionFields( this.state.name, this.state.alias, this.state.color ) ) {
-            const session = new Session( this.state.name, this.state.alias, this.state.color );
+        if ( formFieldsUtils.checkAddSessionFields( this.state.name, this.state.alias, this.state.color ) ) {
+            const session = new Session(this.state.name, this.state.alias, this.state.color);
 
-            this.props.changeScheduleSettings( {
-                functionName: 'addSession',
-                reactComponentName: 'sessions',
-                data: session
+            this.props.schedule.addSession( session );
+            this.state.colors.forEach( el => {
+                if ( el.selected ) el.selected = false;
             });
 
-            this._isMounted && this.setState( {
+            this.setState({
                 alias: '',
                 color: '',
-                colors: colorUtils.getList(),
                 name: '',
             });
+
+            this.props.update();
         }
     };
 

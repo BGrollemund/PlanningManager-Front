@@ -18,11 +18,11 @@ export default class DayDetails {
 
         Object.entries( this[slotIndex] ).forEach( el => {
             if ( el[1].sessionKey )
-                if ( ! [ -1, '-1', '' ].includes( el[1].sessionKey ) ) result = false;
+                if ( ! [ '-1', '' ].includes( el[1].sessionKey ) ) result = false;
 
             if ( el[1].speakerKeys )
                 el[1].speakerKeys.forEach( speaker => {
-                    if ( speaker !== '' ) result = false;
+                    if ( speaker.length > 0 ) result = false;
                 });
 
             if( el[1].mention )

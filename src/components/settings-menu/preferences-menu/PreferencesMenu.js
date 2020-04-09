@@ -8,7 +8,7 @@ class PreferencesMenu extends React.Component {
         return (
             <div>
                 <PreferencesDetails
-                    preferences={ this.props.preferences }
+                    schedule={ this.props.schedule }
                     update={ this.props.update } />
             </div>
         );

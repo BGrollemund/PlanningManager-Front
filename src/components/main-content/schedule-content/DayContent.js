@@ -16,6 +16,7 @@ class DayContent extends React.Component {
      */
     closePopup = () => {
         this.setState( { showPopup: false } );
+         this.props.update();
     };
 
     /**
@@ -26,7 +27,6 @@ class DayContent extends React.Component {
     };
 
     render() {
-
         let
             cursor = '',
             dayContent = '',

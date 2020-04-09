@@ -109,6 +109,11 @@ h3 {
     text-align: center;
 }
 
+h4 {
+    font-size: 26px;
+    padding: 26px 13px 0 13px;
+}
+
 input {
     border: 1px solid var(--gray-dark);
     margin-left: 3px;
@@ -157,6 +162,11 @@ input[type="button"] {
             background: #e15f5f;
         }
 
+    input[type="button"].toggle-stats-details {
+        margin: 0;
+        padding: 3px;
+    }
+
 input[type="checkbox"] {
     display: inline-block;
     margin: 13px;
@@ -192,6 +202,10 @@ ul {
     list-style: none;
 }
 
+.bold {
+    font-weight: 700;
+}
+
 .color-picker {
     display: inline-block;
     vertical-align: middle;
@@ -219,6 +233,15 @@ ul {
 .content-schedule {
     display: flex;
 }
+
+.content-stats-list {
+    font-size: 16px;
+    padding: 26px;
+}
+
+    .content-stats-list input:disabled {
+        opacity: 0.8;
+    }
 
 .content-week {
     padding: 3px;
@@ -269,6 +292,10 @@ ul {
     right: 0;
     top: 0;
     z-index: 2;
+}
+
+.hidden {
+    display: none;
 }
 
 .input-days-list {
@@ -377,3 +404,20 @@ ul {
     z-index: 2;
 }
 
+.stats-details-div {
+    margin-left: 26px;
+}
+
+.stats-list-box {
+   margin: 13px 0;
+}
+
+.stats-list-span {
+    display: inline-block;
+    margin-left: 13px;
+    width: 100px;
+}
+
+.tall {
+    font-size: 18px;
+}

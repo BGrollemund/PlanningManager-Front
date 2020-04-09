@@ -9,10 +9,10 @@ class SpeakersMenu extends React.Component {
         return (
             <div>
                 <SessionsAdd
-                    changeScheduleSettings={ this.props.changeScheduleSettings } />
+                    schedule={ this.props.schedule }
+                    update={ this.props.update } />
                 <SessionsList
-                    changeScheduleSettings={ this.props.changeScheduleSettings }
-                    sessions={ this.props.sessions }
+                    schedule={ this.props.schedule }
                     update={ this.props.update } />
             </div>
         );

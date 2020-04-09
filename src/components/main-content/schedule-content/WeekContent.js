@@ -18,11 +18,12 @@ class WeekContent extends React.Component {
         days = Object.keys( daysListSelected ).map( key => (
             <DayContent
                 key={key}
-                daysListSelected = { daysListSelected }
-                numCol = { this.props.numCol }
-                numLine = { parseInt( key ) + 1 }
-                schedule = { this.props.schedule }
-                weekInfos = { this.props.weekInfos } />
+                daysListSelected={ daysListSelected }
+                numCol={ this.props.numCol }
+                numLine={ parseInt( key ) + 1 }
+                schedule={ this.props.schedule }
+                update={ this.props.update }
+                weekInfos= { this.props.weekInfos } />
         ));
 
         return (

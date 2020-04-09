@@ -30,7 +30,7 @@ class SessionInfos extends React.Component {
             timeEnd = '',
             timeStart = '';
 
-        if ( parseInt(this.props.sessionKey ) !== 0 &&
+        if ( parseInt( this.props.sessionKey ) !== 0 &&
                 parseInt( this.props.schedule.data
                             [this.props.dayId]
                             [this.props.slotKey]
@@ -51,25 +51,25 @@ class SessionInfos extends React.Component {
             if ( firstSession ) {
                 background = firstSession.color;
                 sessionAlias = firstSession.alias;
-
-                if ( settings.preferences.showGroup )
-                    groupName = <GroupNameSpan
-                        sessionIndex={ this.props.sessionKey }
-                        sessionsPerSolt={ settings.preferences.sessionsPerSlot } />;
-
-                firstSpeakerKeys.forEach( el => {
-                    if ( settings.speakers[el] )
-                        speakersAliasArr.push( settings.speakers[el].alias );
-                });
-
-                if ( speakersAliasArr ) speakersAlias = speakersAliasArr.join( ' - ' );
-
-                if ( settings.preferences.mentionOption )
-                    mention = this.props.schedule.data
-                        [this.props.dayId]
-                        [this.props.slotKey]
-                        [0].mention;
             }
+
+            firstSpeakerKeys.forEach( el => {
+                if ( settings.speakers[el] )
+                    speakersAliasArr.push( settings.speakers[el].alias );
+            });
+
+            if ( speakersAliasArr ) speakersAlias = speakersAliasArr.join( ' - ' );
+
+            if ( ( firstSession || speakersAliasArr.length > 0 ) && settings.preferences.showGroup )
+                groupName = <GroupNameSpan
+                    sessionIndex={ this.props.sessionKey }
+                    sessionsPerSolt={ settings.preferences.sessionsPerSlot } />;
+
+            if ( settings.preferences.mentionOption )
+                mention = this.props.schedule.data
+                    [this.props.dayId]
+                    [this.props.slotKey]
+                    [0].mention;
         }
         else {
 
@@ -88,8 +88,8 @@ class SessionInfos extends React.Component {
 
             if ( sessionAlias || speakersAlias ) {
                 if ( this.props.sessionKey === 0 && settings.preferences.showSlot ) {
-                    timeEnd = timeUtils.formatForUser( settings.slots[this.props.slotKey].end_time );
-                    timeStart = timeUtils.formatForUser( settings.slots[this.props.slotKey].start_time );
+                    timeEnd = timeUtils.formatForUser( settings.slots[this.props.slotKey].endTime );
+                    timeStart = timeUtils.formatForUser( settings.slots[this.props.slotKey].startTime );
                 }
 
                 if ( settings.preferences.showGroup  && this.props.slotWidth < 100 )

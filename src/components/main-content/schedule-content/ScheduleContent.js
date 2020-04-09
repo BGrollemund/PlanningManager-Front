@@ -26,7 +26,6 @@ class ScheduleContent extends React.Component {
     };
 
     render() {
-
         let numWeeks = Math.floor(
             ( window.innerWidth - 106 ) /
             ( parseInt( this.props.schedule.settings.preferences.dayCellWidth ) + 7 )
@@ -34,8 +33,8 @@ class ScheduleContent extends React.Component {
 
         const
             weeksList = dateUtils.findWeeks(
-                this.props.schedule.settings.infos.start_date,
-                this.props.schedule.settings.infos.end_date
+                this.props.schedule.settings.infos.startDate,
+                this.props.schedule.settings.infos.endDate
             ),
             weeksToShow = weeksList.slice(
                 ( this.state.numPage - 1 ) * numWeeks,
@@ -48,9 +47,10 @@ class ScheduleContent extends React.Component {
             weeks = Object.keys( weeksToShow ).map( key => (
                 <WeekContent
                     key={key}
-                    numCol = { parseInt( key ) + 1 }
-                    schedule = { this.props.schedule }
-                    weekInfos = { weeksToShow[key] } />
+                    numCol= { parseInt( key ) + 1 }
+                    schedule= { this.props.schedule }
+                    update= { this.props.update }
+                    weekInfos= { weeksToShow[key] } />
             ));
         }
 
@@ -74,7 +74,7 @@ class ScheduleContent extends React.Component {
                 </div>
                 <div className="content-schedule">
                     <WeekContent
-                        numCol = { 0 }
+                        numCol= { 0 }
                         schedule= { this.props.schedule }
                         weekInfos= { { "weekString" : "Jours" } } />
                     { weeks }

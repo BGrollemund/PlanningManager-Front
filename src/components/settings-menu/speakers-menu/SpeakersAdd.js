@@ -11,19 +11,6 @@ class SpeakersAdd extends React.Component {
         name: ''
     };
 
-    constructor( props ) {
-        super( props );
-        this._isMounted = false;
-    }
-
-    componentDidMount() {
-        this._isMounted = true;
-    }
-
-    componentWillUnmount() {
-        this._isMounted = false;
-    }
-
     /**
      * Change handler
      *
@@ -44,16 +31,14 @@ class SpeakersAdd extends React.Component {
         if( formFieldsUtils.checkAddSpeakerFields( this.state.name, this.state.alias ) ) {
             const speaker = new Speaker( this.state.name, this.state.alias );
 
-            this.props.changeScheduleSettings( {
-                functionName: 'addSpeaker',
-                reactComponentName: 'speakers',
-                data: speaker
-            });
+            this.props.schedule.addSpeaker( speaker );
 
-            this._isMounted && this.setState( {
+            this.setState( {
                 alias: '',
                 name: ''
             });
+
+            this.props.update();
         }
     };
 

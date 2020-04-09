@@ -3,7 +3,7 @@ import React from "react";
 class SpeakersList extends React.Component {
 
     state = {
-        speakers: this.props.speakers
+        speakers: this.props.schedule.settings.speakers
     };
 
     /**
@@ -18,9 +18,10 @@ class SpeakersList extends React.Component {
             val = event.target.value;
 
         let newSpeakers = this.state.speakers;
-        newSpeakers[key]['edit'+name]( val );
 
+        newSpeakers[key][name] = val;
         this.setState( { speakers: newSpeakers } );
+
         this.props.update();
     };
 
@@ -30,11 +31,9 @@ class SpeakersList extends React.Component {
      * @param key
      */
     removeSpeaker = ( key ) => {
-        this.props.changeScheduleSettings( {
-            functionName: 'removeSpeaker',
-            reactComponentName: 'speakers',
-            data: key
-        });
+        this.props.schedule.removeSpeaker( key );
+
+        this.props.update();
     };
 
     render() {
@@ -44,17 +43,15 @@ class SpeakersList extends React.Component {
             speakers = Object.keys( this.state.speakers ).map( key => (
                 <div key={key} className="content-menu-list">
                     <input
-                        id={ "speaker-name-"+key }
                         onChange = { this.handleChange.bind( this, key ) }
-                        name="Name"
+                        name="name"
                         placeholder= "Intervenant"
                         value={ this.state.speakers[key].name }
                         type="text" />
 
                     <input
-                        id={ "speaker-alias-"+key }
                         onChange = { this.handleChange.bind( this, key ) }
-                        name="Alias"
+                        name="alias"
                         placeholder= "Abréviation"
                         value={ this.state.speakers[key].alias }
                         type="text" />

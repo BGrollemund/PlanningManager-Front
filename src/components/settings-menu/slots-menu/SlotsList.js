@@ -3,7 +3,7 @@ import React from "react";
 class SlotsList extends React.Component {
 
     state = {
-        slots: this.props.slots
+        slots: this.props.schedule.settings.slots
     };
 
     /**
@@ -18,9 +18,10 @@ class SlotsList extends React.Component {
             val = event.target.value;
 
         let newSlots = this.state.slots;
-        newSlots[key]['edit'+name]( val );
 
+        newSlots[key][name] = val;
         this.setState( { slots: newSlots } );
+
         this.props.update();
     };
 
@@ -30,11 +31,9 @@ class SlotsList extends React.Component {
      * @param key
      */
     removeSlot = ( key ) => {
-        this.props.changeScheduleSettings( {
-            functionName: 'removeSlot',
-            reactComponentName: 'slots',
-            data: key
-        });
+        this.props.schedule.removeSlot( key );
+
+        this.props.update();
     };
 
     render() {
@@ -44,17 +43,15 @@ class SlotsList extends React.Component {
             slots = Object.keys( this.state.slots ).map( key => (
                 <div key={key} className="content-menu-list">
                     <input
-                        id={ "slot-start-time-"+key }
                         onChange = { this.handleChange.bind( this, key ) }
-                        name="StartTime"
-                        value={ this.state.slots[key].start_time }
+                        name="startTime"
+                        value={ this.state.slots[key].startTime }
                         type="time" />
 
                     <input
-                        id={ "slot-end-time-"+key }
                         onChange = { this.handleChange.bind( this, key ) }
-                        name="EndTime"
-                        value={ this.state.slots[key].end_time }
+                        name="endTime"
+                        value={ this.state.slots[key].endTime }
                         type="time" />
 
                     <input

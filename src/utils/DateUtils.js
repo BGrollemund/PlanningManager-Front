@@ -3,13 +3,13 @@ class DateUtils {
     /**
      * Find days in entire weeks between two dates
      *
-     * @param start_date
-     * @param end_date
+     * @param dateStart
+     * @param dateEnd
      */
-    findDaysCompleteWeek = ( start_date, end_date ) => {
+    findDaysCompleteWeek = ( dateStart, dateEnd ) => {
         let
-            startDate = new Date( start_date ),
-            endDate = new Date( end_date ),
+            startDate = new Date( dateStart ),
+            endDate = new Date( dateEnd ),
             result = [];
 
         if ( isNaN( startDate.getTime() ) || isNaN( endDate.getTime() ) ) return result;
@@ -56,28 +56,28 @@ class DateUtils {
      * Find weeks and their infos between two dates
      * (if date are not well sorted return only the week of the start date)
      *
-     * @param start_date
-     * @param end_date
+     * @param dateStart
+     * @param dateEnd
      * @return {[]}
      */
-    findWeeks = ( start_date, end_date ) => {
+    findWeeks = ( dateStart, dateEnd ) => {
         let
-            startDate = new Date( start_date ),
-            endDate = new Date( end_date ),
+            startDate = new Date( dateStart ),
+            endDate = new Date( dateEnd ),
             result = [];
 
         if ( isNaN( startDate.getTime() ) || isNaN( endDate.getTime() ) ) return result;
 
         let
-            monday = new Date( start_date ),
-            sunday = new Date( start_date );
+            monday = new Date( dateStart ),
+            sunday = new Date( dateStart );
 
         monday.setDate( monday.getDate() - ( this.newGetDay( monday ) - 1 ) );
         sunday.setDate( sunday.getDate() + ( 7 - this.newGetDay( sunday ) ) );
 
         result.push( this.findWeekInfos( monday, sunday ) );
 
-        while( sunday - end_date < 0 ) {
+        while( sunday - dateEnd < 0 ) {
             monday.setDate( monday.getDate() + 7 );
             sunday.setDate( sunday.getDate() + 7 );
 
@@ -85,6 +85,18 @@ class DateUtils {
         }
 
         return result;
+    };
+
+    /**
+     * Format a date interval in a user-friendly format
+     *
+     * @param dateStart
+     * @param dateEnd
+     * @return {string}
+     */
+    formatDateIntervalString = ( dateStart, dateEnd ) => {
+        return  'Du ' + this.formatForUser( dateStart ) +
+            ' au ' + this.formatForUser( dateEnd );
     };
 
     /**

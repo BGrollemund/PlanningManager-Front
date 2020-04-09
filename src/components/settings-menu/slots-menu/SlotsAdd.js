@@ -7,22 +7,9 @@ import formFieldsUtils from "../../../utils/FormFieldsUtils";
 class SlotsAdd extends React.Component {
 
     state = {
-        start_time: '',
-        end_time: ''
+        startTime: '',
+        endTime: ''
     };
-
-    constructor( props ) {
-        super( props );
-        this._isMounted = false;
-    }
-
-    componentDidMount() {
-        this._isMounted = true;
-    }
-
-    componentWillUnmount() {
-        this._isMounted = false;
-    }
 
     /**
      * Change handler
@@ -41,19 +28,17 @@ class SlotsAdd extends React.Component {
      * Add a slot in schedule.settings.slots
      */
     addSlot = () => {
-        if( formFieldsUtils.checkAddSlotFields( this.state.start_time, this.state.end_time  ) ) {
-            const slot = new Slot( this.state.start_time, this.state.end_time );
+        if( formFieldsUtils.checkAddSlotFields( this.state.startTime, this.state.endTime  ) ) {
+            const slot = new Slot( this.state.startTime, this.state.endTime );
 
-            this.props.changeScheduleSettings( {
-                functionName: 'addSlot',
-                reactComponentName: 'slots',
-                data: slot
+            this.props.schedule.addSlot( slot );
+
+            this.setState( {
+                startTime: '',
+                endTime: ''
             });
 
-            this._isMounted && this.setState( {
-                start_time: '',
-                end_time: ''
-            });
+            this.props.update();
         }
     };
 
@@ -63,15 +48,15 @@ class SlotsAdd extends React.Component {
                 <input
                     id="slot-start-time"
                     onChange = { this.handleChange }
-                    name="start_time"
-                    value={ this.state.start_time }
+                    name="startTime"
+                    value={ this.state.startTime }
                     type="time" />
 
                 <input
                     id="slot-end-time"
                     onChange = { this.handleChange }
-                    name="end_time"
-                    value={ this.state.end_time }
+                    name="endTime"
+                    value={ this.state.endTime }
                     type="time" />
 
                 <input

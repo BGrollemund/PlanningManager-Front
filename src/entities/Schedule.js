@@ -27,7 +27,7 @@ class Schedule {
      * Init data with keys of schedule days
      */
     initData = () => {
-       const daysArr = dateUtils.findDaysCompleteWeek( this.settings.infos.start_date, this.settings.infos.end_date );
+       const daysArr = dateUtils.findDaysCompleteWeek( this.settings.infos.startDate, this.settings.infos.endDate );
 
        daysArr.forEach( el => {
            if( ! this.data[el] ) {
@@ -59,10 +59,10 @@ class Schedule {
 
         let
             dayDetails0 = new DayDetails(),
-            sessionDetails0 = new SessionDetails( 1,[ 0, 1 ], "mention0" ),
-            sessionDetails1 = new SessionDetails( 0, [ 1 ], "" ),
-            sessionDetails2 = new SessionDetails( 0, [ 0 ], "mention1" ),
-            sessionDetails3 = new SessionDetails( 1, [], "mention2" ),
+            sessionDetails0 = new SessionDetails( '1',[ '0', '1' ], "mention0" ),
+            sessionDetails1 = new SessionDetails( '0', [ '1' ], "" ),
+            sessionDetails2 = new SessionDetails( '0', [ '0' ], "mention1" ),
+            sessionDetails3 = new SessionDetails( '1', [], "mention2" ),
             slotDetails0 = new SlotDetails(),
             slotDetails1 = new SlotDetails();
 
@@ -74,14 +74,15 @@ class Schedule {
         dayDetails0.addDaySlot( '0', slotDetails0 );
         dayDetails0.addDaySlot( '1', slotDetails1 );
 
-        this.data.addDayDetails( '2020-04-06', dayDetails0 );
+        this.data.addDayDetails( '2020-04-13', dayDetails0 );
     };
+
 
     /**
      * Update data schedule when sessionPerSlot are changed
      */
-    updateDataBySessionPerSlot = () => {
-        const daysArr = dateUtils.findDaysCompleteWeek( this.settings.infos.start_date, this.settings.infos.end_date );
+    updateDataBySessionsPerSlot = () => {
+        const daysArr = dateUtils.findDaysCompleteWeek( this.settings.infos.startDate, this.settings.infos.endDate );
 
         daysArr.forEach( el => {
             Object.keys( this.settings.slots ).forEach( key => {
@@ -117,7 +118,7 @@ class Schedule {
     addSlot = ( slot ) => {
         this.settings.slots[ this.settings.keys.slotKey + 1 ] = slot;
 
-        const daysArr = dateUtils.findDaysCompleteWeek( this.settings.infos.start_date, this.settings.infos.end_date );
+        const daysArr = dateUtils.findDaysCompleteWeek( this.settings.infos.startDate, this.settings.infos.endDate );
 
         daysArr.forEach( el => {
             this.data[el].addDaySlot( this.settings.keys.slotKey + 1, new SlotDetails() );

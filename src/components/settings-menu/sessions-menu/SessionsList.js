@@ -7,7 +7,7 @@ class SessionsList extends React.Component {
 
     state = {
         colors: [],
-        sessions: this.props.sessions
+        sessions: this.props.schedule.settings.sessions
     };
 
     /**
@@ -22,9 +22,10 @@ class SessionsList extends React.Component {
             val = event.target.value;
 
         let newSessions = this.state.sessions;
-        newSessions[key]['edit'+name]( val );
+        newSessions[key][name] = val;
 
         this.setState( { sessions: newSessions } );
+
         this.props.update();
     };
 
@@ -41,14 +42,14 @@ class SessionsList extends React.Component {
         await event.forEach( el => {
             if ( el.hex === this.state.sessions[key].color ) {
                 el.selected = false;
-                newSessions[key].editColor( '' );
+                newSessions[key].color = '';
                 this.setState( { sessions: newSessions } );
             }
         });
 
         event.forEach( el => {
             if ( el.selected ) {
-                newSessions[key].editColor( el.hex );
+                newSessions[key].color = el.hex;
                 this.setState( { sessions: newSessions } );
             }
         });
@@ -62,11 +63,9 @@ class SessionsList extends React.Component {
      * @param key
      */
     removeSession = ( key ) => {
-        this.props.changeScheduleSettings( {
-            functionName: 'removeSession',
-            reactComponentName: 'sessions',
-            data: key
-        });
+        this.props.schedule.removeSession( key );
+
+        this.props.update();
     };
 
     render() {
@@ -76,20 +75,18 @@ class SessionsList extends React.Component {
             sessions = Object.keys( this.state.sessions ).map( key => (
                 <div key={key} className="content-menu-list">
                     <input
-                        id={ "session-name-"+key }
-                        onChange = { this.handleChange.bind( this, key ) }
-                        name="Name"
+                        onChange={ this.handleChange.bind( this, key ) }
+                        name="name"
                         value={ this.state.sessions[key].name }
                         type="text" />
 
                     <input
-                        id={ "session-alias-"+key }
-                        onChange = { this.handleChange.bind( this, key ) }
-                        name="Alias"
+                        onChange={ this.handleChange.bind( this, key ) }
+                        name="alias"
                         value={ this.state.sessions[key].alias }
                         type="text" />
 
-                    <div className="color-picker" id={ "session-color-"+key }>
+                    <div className="color-picker">
                         <ReactCircleColorPicker
                             onChange={ this.handleColorChange.bind( this, key ) }
                             colors={ colorUtils.getListWithSelected( this.state.sessions[key].color ) } />

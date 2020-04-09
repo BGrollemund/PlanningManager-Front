@@ -2,10 +2,10 @@ import React from "react";
 
 import dateUtils from "../../../utils/DateUtils";
 
-class ScheduleDetails extends React.Component {
+class InfosDetails extends React.Component {
 
     state = {
-        infos: this.props.infos
+        infos: this.props.schedule.settings.infos
     };
 
     /**
@@ -19,9 +19,29 @@ class ScheduleDetails extends React.Component {
             val = event.target.value;
 
         let newScheduleInfos = this.state.infos;
-        newScheduleInfos['edit'+name]( val );
 
+        newScheduleInfos[name] = val;
         this.setState( { infos: newScheduleInfos } );
+
+        this.props.update();
+    };
+
+    /**
+     * Dates change handler
+     *
+     * @param event
+     */
+    handleDateChange = ( event ) => {
+        const
+            name = event.target.name,
+            val = event.target.value;
+
+        let newScheduleInfos = this.state.infos;
+
+        newScheduleInfos[name] = new Date( val );
+        this.setState( { infos: newScheduleInfos } );
+
+        this.props.schedule.initData();
         this.props.update();
     };
 
@@ -33,9 +53,10 @@ class ScheduleDetails extends React.Component {
      */
     handleDaysChange = ( dayKey, event ) => {
         let newScheduleInfos = this.state.infos;
-        newScheduleInfos.days[dayKey] = event.target.checked;
 
+        newScheduleInfos.days[dayKey] = event.target.checked;
         this.setState( { infos: newScheduleInfos } );
+
         this.props.update();
     };
 
@@ -58,26 +79,23 @@ class ScheduleDetails extends React.Component {
             <div className="content-menu">
                 <div>
                     <input
-                        id="schedule_name"
                         onChange = { this.handleChange }
-                        name="Name"
+                        name="name"
                         value={ this.state.infos.name }
                         type="text" />
                 </div>
                 <div>
                     <span> Du : </span>
                     <input
-                        id="schedule_start_date"
-                        onChange = { this.handleChange }
-                        name="StartDate"
-                        value={ dateUtils.formatForInput( this.state.infos.start_date ) }
+                        onChange = { this.handleDateChange }
+                        name="startDate"
+                        value={ dateUtils.formatForInput( this.state.infos.startDate ) }
                         type="date" />
                     <span> au : </span>
                     <input
-                        id="schedule_end_date"
-                        onChange = { this.handleChange }
-                        name="EndDate"
-                        value={ dateUtils.formatForInput( this.state.infos.end_date ) }
+                        onChange = { this.handleDateChange }
+                        name="endDate"
+                        value={ dateUtils.formatForInput( this.state.infos.endDate ) }
                         type="date" />
                 </div>
                 <div id="days">{ daysInput }</div>
@@ -86,4 +104,4 @@ class ScheduleDetails extends React.Component {
     }
 }
 
-export default ScheduleDetails;
+export default InfosDetails;

@@ -9,10 +9,10 @@ class SlotsMenu extends React.Component {
         return (
             <div>
                 <SlotsAdd
-                    changeScheduleSettings={ this.props.changeScheduleSettings } />
+                    schedule={ this.props.schedule }
+                    update={ this.props.update } />
                 <SlotsList
-                    changeScheduleSettings={ this.props.changeScheduleSettings }
-                    slots={ this.props.slots }
+                    schedule={ this.props.schedule }
                     update={ this.props.update } />
             </div>
         );

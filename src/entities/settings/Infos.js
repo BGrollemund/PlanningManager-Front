@@ -3,10 +3,10 @@
  */
 class Infos {
 
-    constructor( name = '', start_date = new Date(), end_date = new Date(), days = {} ) {
+    constructor( name = '', startDate = new Date(), endDate = new Date(), days = {} ) {
         this.name = name;
-        this.start_date = start_date;
-        this.end_date = end_date;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.days = days;
     }
 
@@ -15,14 +15,14 @@ class Infos {
      */
     init = () => {
         let
-            current_date = new Date(),
-            next_month_date = new Date( current_date );
+            currentDate = new Date(),
+            nextMonthDate = new Date( currentDate );
 
-        next_month_date.setMonth(current_date.getMonth() + 3);
+        nextMonthDate.setMonth(currentDate.getMonth() + 3);
 
         this.name = 'Nom de votre planning';
-        this.start_date = current_date;
-        this.end_date = next_month_date;
+        this.startDate = currentDate;
+        this.endDate = nextMonthDate;
         this.days = {
             Lundi: true,
             Mardi: true,
@@ -32,35 +32,6 @@ class Infos {
             Samedi: false,
             Dimanche: false
         };
-    };
-
-    // Edit
-
-    /**
-     * Edit schedule name
-     *
-     * @param name
-     */
-    editName = ( name ) => {
-        this.name = name;
-    };
-
-    /**
-     * Edit schedule start date with the input date value
-     *
-     * @param start_date_from_input
-     */
-    editStartDate = ( start_date_from_input ) => {
-        this.start_date = new Date( start_date_from_input );
-    };
-
-    /**
-     * Edit schedule end date with the input date value
-     *
-     * @param end_date_from_input
-     */
-    editEndDate = ( end_date_from_input ) => {
-        this.end_date = new Date( end_date_from_input );
     };
 }
 

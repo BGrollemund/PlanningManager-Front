@@ -3,7 +3,7 @@ import React from "react";
 class PreferencesDetails extends React.Component {
 
     state = {
-        preferences: this.props.preferences
+        preferences: this.props.schedule.settings.preferences
     };
 
     /**
@@ -17,9 +17,10 @@ class PreferencesDetails extends React.Component {
             val = event.target.value;
 
         let newSchedulePreferences = this.state.preferences;
-        newSchedulePreferences['edit'+name]( val );
 
+        newSchedulePreferences[name] = val;
         this.setState( { preferences: newSchedulePreferences } );
+
         this.props.update();
     };
 
@@ -34,9 +35,26 @@ class PreferencesDetails extends React.Component {
             val = event.target.checked;
 
         let newSchedulePreferences = this.state.preferences;
-        newSchedulePreferences['edit'+name]( val );
 
+        newSchedulePreferences[name] = val;
         this.setState( { preferences: newSchedulePreferences } );
+
+        this.props.update();
+    };
+
+    /**
+     * Sessions per slot change handler
+     *
+     * @param event
+     */
+    handleSessionsPerSlotChange = ( event ) => {
+        let newSchedulePreferences = this.state.preferences;
+
+        newSchedulePreferences.sessionsPerSlot = event.target.value;
+        this.setState( { preferences: newSchedulePreferences } );
+
+        if ( this.props.schedule.maxSessionsPerSlot < this.props.schedule.settings.preferences.sessionsPerSlot )
+            this.props.schedule.updateDataBySessionsPerSlot();
         this.props.update();
     };
 
@@ -48,34 +66,30 @@ class PreferencesDetails extends React.Component {
                     <span> Taille des cellules : </span>
                     <span> largeur </span>
                     <input
-                        id="schedule_day_cell_width"
                         onChange = { this.handleChange }
-                        name="DayCellWidth"
+                        name="dayCellWidth"
                         value={ this.state.preferences.dayCellWidth }
                         type="number" />
                     <span> x hauteur </span>
                     <input
-                        id="schedule_day_cell_height"
                         onChange = { this.handleChange }
-                        name="DayCellHeight"
+                        name="dayCellHeight"
                         value={ this.state.preferences.dayCellHeight }
                         type="number" />
                 </div>
                 <div>
                     <span> Nombre de groupes : </span>
                     <input
-                        id="schedule_sessions_per_slot"
-                        onChange = { this.handleChange }
-                        name="SessionsPerSlot"
+                        onChange = { this.handleSessionsPerSlotChange }
+                        name="sessionsPerSlot"
                         value={ this.state.preferences.sessionsPerSlot }
                         type="number" />
                 </div>
                 <div>
                     <span> Nombre maximal d'intervenants par créneau : </span>
                     <input
-                        id="schedule_speakers_per_slot"
                         onChange = { this.handleChange }
-                        name="SpeakersPerSlot"
+                        name="speakersPerSlot"
                         value={ this.state.preferences.speakersPerSlot }
                         type="number" />
                 </div>
@@ -83,7 +97,7 @@ class PreferencesDetails extends React.Component {
                     <input
                         defaultChecked = { this.state.preferences.mentionOption }
                         onChange = { this.handleCheckboxChange }
-                        name="MentionOption"
+                        name="mentionOption"
                         type="checkbox" />
                     <span> Ajouter des mentions </span>
                 </div>
@@ -91,7 +105,7 @@ class PreferencesDetails extends React.Component {
                     <input
                         defaultChecked = { this.state.preferences.showSlot }
                         onChange = { this.handleCheckboxChange }
-                        name="ShowSlot"
+                        name="showSlot"
                         type="checkbox" />
                     <span> Afficher les horaires dans chaque cellule </span>
                 </div>
@@ -99,7 +113,7 @@ class PreferencesDetails extends React.Component {
                     <input
                         defaultChecked = { this.state.preferences.showGroup }
                         onChange = { this.handleCheckboxChange }
-                        name="ShowGroup"
+                        name="showGroup"
                         type="checkbox" />
                     <span> Afficher les groupes dans chaque cellule </span>
                 </div>
