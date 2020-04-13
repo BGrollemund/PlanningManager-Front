@@ -4,7 +4,7 @@ import SlotsDiv from "./SlotsDiv";
 
 import timeUtils from "../../../../utils/TimeUtils";
 
-class Popup extends React.Component {
+class DataPopup extends React.Component {
 
     state = {
         data: this.props.schedule.data
@@ -49,7 +49,7 @@ class Popup extends React.Component {
 
         return (
             <div className='popup'>
-                <div className='popup-inner'>
+                <div className='popup-data'>
                     <h3>{ this.props.dayString }</h3>
                     <div className="flex-grow-1">
                         { slotsList }
@@ -66,4 +66,4 @@ class Popup extends React.Component {
     }
 }
 
-export default Popup;
+export default DataPopup;

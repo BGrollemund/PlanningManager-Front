@@ -78,7 +78,7 @@ class StatsUtils {
                         for ( let i=0; i<sessionsPerSlot; i++ ) {
                             const duration = settings.slots[slot[0]].getDuration();
 
-                            // case: same as group 1 (default value in form edit data popup)
+                            // case: same as group 1 (default value in form edit data dataPopup)
                             if (    i !== 0
                                     && settings.sessions[data[day][slot[0]][0].sessionKey]
                                     && data[day][slot[0]][i].sessionKey === '-1' ) {
@@ -184,7 +184,7 @@ class StatsUtils {
                         for ( let i=0; i<sessionsPerSlot; i++ ) {
                             const duration = settings.slots[slot[0]].getDuration();
 
-                            // case: same as group 1 (default value in form edit data popup)
+                            // case: same as group 1 (default value in form edit data dataPopup)
                             if ( i !== 0 && data[day][slot[0]][i].sessionKey === '-1' ) {
                                 data[day][slot[0]][0].speakerKeys.forEach( el => {
                                     if( settings.speakers[el] ) {

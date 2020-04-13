@@ -1,5 +1,9 @@
 import React from "react";
 
+// To use after authentication
+// import Connector from "../connector/Connector";
+// Connector.post('/api/schedules', { schedule: this.state.schedule }).then( res => console.log( 'success!' ) );
+
 import Header from "./header/Header";
 import Footer from "./footer/Footer";
 import Main from "./main-content/Main";
@@ -11,7 +15,21 @@ import sch from "../entities/Schedule";
 class App extends React.Component {
 
     state = {
-        schedule: sch
+        schedule: sch,
+        userAttr: {
+            token: '',
+            userId: ''
+        }
+    };
+
+    /**
+     * Change user attributes when connect or disconnect
+     *
+     * @param token
+     * @param userId
+     */
+    changeUserAttr = ( token, userId ) => {
+        this.setState( { userAttr: { token: token, userId: userId } } );
     };
 
     /**
@@ -24,7 +42,9 @@ class App extends React.Component {
     render() {
         return (
             <div id="content">
-                <Header/>
+                <Header
+                    changeUserAttr={ this.changeUserAttr }
+                    userAttr={ this.state.userAttr } />
                 <Settings
                     schedule={ this.state.schedule }
                     update={ this.update } />

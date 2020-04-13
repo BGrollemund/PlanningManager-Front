@@ -106,6 +106,112 @@ class FormFieldsUtils {
 
         return isValid;
     };
+
+    /**
+     * Check if a string have a valid email format
+     *
+     * @param email
+     * @return {boolean}
+     */
+    checkEmail = ( email ) => {
+        // eslint-disable-next-line no-useless-escape
+        const regExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return regExp.test( String( email ).toLowerCase() );
+    };
+
+    /**
+     * Check fields of login form in connection popup
+     *
+     * @param email
+     * @param password
+     * @return {boolean}
+     */
+    checkLoginFields = ( email, password ) => {
+        const
+            isValidEmail = this.checkEmail( email ),
+            $loginEmail = document.querySelector( '#login-email' ),
+            $loginError = document.querySelector( '#login-error' ),
+            $loginPassword = document.querySelector( '#login-password' );
+
+        let
+            errMsg = '',
+            isValid = true;
+
+        if ( ! isValidEmail ) {
+            errMsg = 'Veuillez entrer un e-mail valide.';
+            isValid = false;
+            $loginEmail.classList.add( 'error-bg' );
+        }
+
+        if( ! ( email && password ) ) {
+            errMsg = 'Veuillez renseigner les champs.';
+            isValid = false;
+        }
+
+        email && isValidEmail ?
+            $loginEmail.classList.remove( 'error-bg' ) :
+            $loginEmail.classList.add( 'error-bg' );
+        password ?
+            $loginPassword.classList.remove( 'error-bg' ) :
+            $loginPassword.classList.add( 'error-bg' );
+
+        $loginError.innerHTML = errMsg;
+
+        return isValid;
+    };
+
+    /**
+     * Check fields of signup form in connection popup
+     *
+     * @param email
+     * @param password
+     * @param password2
+     * @return {boolean}
+     */
+    checkSignupFields = ( email, password, password2 ) => {
+        const
+            isValidEmail = this.checkEmail( email ),
+            $signupEmail = document.querySelector( '#signup-email' ),
+            $signupError = document.querySelector( '#signup-error' ),
+            $signupPassword = document.querySelector( '#signup-password' ),
+            $signupPassword2 = document.querySelector( '#signup-password2' );
+
+        let
+            errMsg = '',
+            isValid = true;
+
+        if ( password !== password2 ) {
+            errMsg = 'Veuillez retapez le même mot de passe.';
+            isValid = false;
+            $signupPassword.classList.add( 'error-bg' );
+            $signupPassword2.classList.add( 'error-bg' );
+        }
+
+        if ( ! isValidEmail ) {
+            errMsg = 'Veuillez entrer un e-mail valide.';
+            isValid = false;
+            $signupEmail.classList.add( 'error-bg' );
+        }
+
+        if( ! ( email && password && password2 ) ) {
+            errMsg = 'Veuillez renseigner les champs.';
+            isValid = false;
+        }
+
+        email && isValidEmail ?
+            $signupEmail.classList.remove( 'error-bg' ) :
+            $signupEmail.classList.add( 'error-bg' );
+        password && password === password2 ?
+            $signupPassword.classList.remove( 'error-bg' ) :
+            $signupPassword.classList.add( 'error-bg' );
+        password2 && password === password2 ?
+            $signupPassword2.classList.remove( 'error-bg' ) :
+            $signupPassword2.classList.add( 'error-bg' );
+
+        $signupError.innerHTML = errMsg;
+
+        return isValid;
+    };
 }
 
 const formFieldsUtils = new FormFieldsUtils();

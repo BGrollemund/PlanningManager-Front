@@ -1,7 +1,7 @@
 import React from "react";
 
 import DayInfos from "./daysInfos/DayInfos";
-import Popup from "./popup/Popup";
+import DataPopup from "./dataPopup/DataPopup";
 
 class DayContent extends React.Component {
 
@@ -64,7 +64,7 @@ class DayContent extends React.Component {
             dayString = this.props.weekInfos.daysInfos[ this.props.daysListSelected[ this.props.numLine - 1 ] ].dayString;
 
             if ( this.state.showPopup )
-                popup = <Popup
+                popup = <DataPopup
                             dayId={ dayId }
                             dayString={ dayString }
                             closePopup={ this.closePopup }

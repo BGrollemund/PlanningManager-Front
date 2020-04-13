@@ -212,6 +212,33 @@ ul {
     margin-left: 13px;
 }
 
+.connection-btn {
+    background: var(--gray-light);
+    border: 3px solid var(--gray-light);
+    border-radius: 5px;
+    color: var(--black);
+    font-size: 18px;
+    font-weight: 700;
+    padding: 13px;
+    text-align: center;
+}
+
+    .connection-btn:hover {
+        background: var(--gray);
+        border: 3px solid var(--black);
+        cursor: pointer;
+    }
+
+    .connection-btn.red {
+        background: #ff6868;
+        border: 3px solid #ff6868;
+    }
+
+        .connection-btn.red:hover {
+            background: #e15f5f;
+            border: 3px solid var(--black);
+        }
+
 .content-day {
     align-items: center;
     border: 1px solid var(--black);
@@ -281,6 +308,10 @@ ul {
     border: solid 1px var(--red);
 }
 
+.flex {
+    display: flex;
+}
+
 .flex-grow-1 {
     flex-grow: 1;
 }
@@ -331,7 +362,21 @@ ul {
     z-index: 3;
 }
 
-.popup-inner {
+.popup-connection {
+    background: var(--white);
+    bottom: 25%;
+    color: var(--black);
+    display: flex;
+    flex-direction: column;
+    left: 25%;
+    padding: 13px;
+    position: absolute;
+    right: 25%;
+    top: 25%;
+    z-index: 3;
+}
+
+.popup-data {
     background: var(--white);
     bottom: 5%;
     display: flex;

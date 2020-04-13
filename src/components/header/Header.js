@@ -1,6 +1,7 @@
 import React from "react";
 
 import config from "../../config/app.config.json";
+import Connection from "./Connection";
 
 class Header extends React.Component {
 
@@ -16,9 +17,9 @@ class Header extends React.Component {
                   <p><em>{ config.siteInfos.slogan }</em></p>
               </div>
               <div className="flex-grow-1"></div>
-              <div>
-                  <a href="/">Espace Login / Sign in</a>
-              </div>
+              <Connection
+                  changeUserAttr={ this.props.changeUserAttr }
+                  userAttr={ this.props.userAttr } />
           </header>
         );
     }

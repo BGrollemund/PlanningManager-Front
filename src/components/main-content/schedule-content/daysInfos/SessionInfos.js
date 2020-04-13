@@ -1,6 +1,6 @@
 import React from "react";
 import timeUtils from "../../../../utils/TimeUtils";
-import GroupNameSpan from "../popup/GroupNameSpan";
+import GroupNameSpan from "../dataPopup/GroupNameSpan";
 
 class SessionInfos extends React.Component {
 
