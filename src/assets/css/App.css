@@ -114,6 +114,11 @@ h4 {
     padding: 26px 13px 0 13px;
 }
 
+h5 {
+    font-size: 20px;
+    padding: 13px;
+}
+
 input {
     border: 1px solid var(--gray-dark);
     margin-left: 3px;
@@ -165,6 +170,13 @@ input[type="button"] {
     input[type="button"].toggle-stats-details {
         margin: 0;
         padding: 3px;
+    }
+
+    input[type="button"].save-btn {
+        font-size: 16px;
+        margin-left: 26px;
+        padding: 13px;
+        width: 400px;
     }
 
 input[type="checkbox"] {
@@ -248,6 +260,20 @@ ul {
     margin: 6px 0;
     padding: 3px;
 }
+
+.content-load-list {
+    padding: 0 26px;
+}
+
+    .content-load-list span {
+        margin: 7px;
+    }
+
+    .content-load-list div:first-child {
+        font-size: 16px;
+        font-weight: 700;
+        margin-top: 13px;
+    }
 
 .content-menu {
     padding: 26px;

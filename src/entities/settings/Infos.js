@@ -18,7 +18,7 @@ class Infos {
             currentDate = new Date(),
             nextMonthDate = new Date( currentDate );
 
-        nextMonthDate.setMonth(currentDate.getMonth() + 3);
+        nextMonthDate.setMonth(currentDate.getMonth() + 1);
 
         this.name = 'Nom de votre planning';
         this.startDate = currentDate;

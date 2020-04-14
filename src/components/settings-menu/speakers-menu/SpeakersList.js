@@ -6,6 +6,11 @@ class SpeakersList extends React.Component {
         speakers: this.props.schedule.settings.speakers
     };
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if ( prevProps !== this.props )
+            this.setState( { speakers: this.props.schedule.settings.speakers } );
+    }
+
     /**
      * Change handler
      *

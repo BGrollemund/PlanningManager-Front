@@ -1,6 +1,7 @@
 import React from "react";
 
 import InfosMenu from "./infos-menu/InfosMenu";
+import SaveLoadMenu from "./save-load-menu/SaveLoadMenu";
 import SessionsMenu from "./sessions-menu/SessionsMenu";
 import SlotsMenu from "./slots-menu/SlotsMenu";
 import SpeakersMenu from "./speakers-menu/SpeakersMenu";
@@ -56,17 +57,20 @@ class Settings extends React.Component {
         if( classList.contains( 'settings-infos' ) )
             this.onSettingsBtnClick( event.target, 'settings-infos' );
 
-        if( event.target.classList.contains('settings-sessions') )
+        if( classList.contains('settings-sessions') )
             this.onSettingsBtnClick( event.target, 'settings-sessions' );
 
-        if( event.target.classList.contains('settings-speakers') )
+        if( classList.contains('settings-speakers') )
             this.onSettingsBtnClick( event.target, 'settings-speakers' );
 
-        if( event.target.classList.contains('settings-slots') )
+        if( classList.contains('settings-slots') )
             this.onSettingsBtnClick( event.target, 'settings-slots' );
 
-        if( event.target.classList.contains('settings-preferences') )
+        if( classList.contains('settings-preferences') )
             this.onSettingsBtnClick( event.target, 'settings-preferences' );
+
+        if( classList.contains('settings-save-load') )
+            this.onSettingsBtnClick( event.target, 'settings-save-load' );
     };
 
     render() {
@@ -78,6 +82,7 @@ class Settings extends React.Component {
                     <li className="settings-btn settings-speakers">Intervenants</li>
                     <li className="settings-btn settings-slots">Horaires</li>
                     <li className="settings-btn settings-preferences">Préférences</li>
+                    <li className="settings-btn settings-save-load">Sauvegarder / Charger</li>
                 </ul>
                 <div className="settings-content hidden" id="settings-infos">
                     <InfosMenu
@@ -103,6 +108,13 @@ class Settings extends React.Component {
                     <PreferencesMenu
                         schedule={ this.props.schedule }
                         update={ this.props.update } />
+                </div>
+                <div className="settings-content hidden" id="settings-save-load">
+                    <SaveLoadMenu
+                        schedule={ this.props.schedule }
+                        scheduleId={ this.props.scheduleId }
+                        userAttr={ this.props.userAttr }
+                        updateFromDB={ this.props.updateFromDB } />
                 </div>
             </nav>
         );

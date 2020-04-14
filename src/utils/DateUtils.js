@@ -106,7 +106,7 @@ class DateUtils {
      * @return {string}
      */
     formatForInput = ( date ) => {
-        let
+        const
             day = ( this.formatTwoNum( date.getDate() ) ).slice( -2 ),
             month = ( this.formatTwoNum( date.getMonth() + 1 ) ).slice( -2 );
 
@@ -120,11 +120,26 @@ class DateUtils {
      * @return {string}
      */
     formatForUser = ( date ) => {
-        let
+        const
             day = ( this.formatTwoNum( date.getDate() ) ).slice( -2 ),
             month = ( this.formatTwoNum( date.getMonth() + 1 ) ).slice( -2 );
 
         return  day + "/" + month + "/" + date.getFullYear();
+    };
+
+    /**
+     * Format date and time in a user-friendly format
+     *
+     * @param date
+     * @return {string}
+     */
+    formatWithTimeForUser = ( date ) => {
+        const formatDate = this.formatForUser( date );
+
+        return  formatDate + ' à '
+            + this.formatTwoNum( date.getHours() )
+            + ":" + this.formatTwoNum( date.getMinutes() )
+            + ":" + this.formatTwoNum( date.getSeconds() );
     };
 
     /**

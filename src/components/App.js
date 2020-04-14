@@ -1,9 +1,5 @@
 import React from "react";
 
-// To use after authentication
-// import Connector from "../connector/Connector";
-// Connector.post('/api/schedules', { schedule: this.state.schedule }).then( res => console.log( 'success!' ) );
-
 import Header from "./header/Header";
 import Footer from "./footer/Footer";
 import Main from "./main-content/Main";
@@ -16,6 +12,7 @@ class App extends React.Component {
 
     state = {
         schedule: sch,
+        scheduleId: '',
         userAttr: {
             token: '',
             userId: ''
@@ -29,7 +26,7 @@ class App extends React.Component {
      * @param userId
      */
     changeUserAttr = ( token, userId ) => {
-        this.setState( { userAttr: { token: token, userId: userId } } );
+        this.setState( { scheduleId: '', userAttr: { token: token, userId: userId } } );
     };
 
     /**
@@ -37,6 +34,15 @@ class App extends React.Component {
      */
     update = () => {
         this.forceUpdate();
+    };
+
+    /**
+     * Update with data from database
+     *
+     * @param scheduleId
+     */
+    updateFromDB = ( scheduleId ) => {
+        this.setState( { scheduleId: scheduleId } );
     };
 
     render() {
@@ -47,7 +53,10 @@ class App extends React.Component {
                     userAttr={ this.state.userAttr } />
                 <Settings
                     schedule={ this.state.schedule }
-                    update={ this.update } />
+                    scheduleId={ this.state.scheduleId }
+                    userAttr={ this.state.userAttr }
+                    update={ this.update }
+                    updateFromDB={ this.updateFromDB } />
                 <Main
                     schedule={ this.state.schedule }
                     update={ this.update } />

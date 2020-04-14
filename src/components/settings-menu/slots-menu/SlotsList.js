@@ -6,6 +6,11 @@ class SlotsList extends React.Component {
         slots: this.props.schedule.settings.slots
     };
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if ( prevProps !== this.props )
+            this.setState( { slots: this.props.schedule.settings.slots } );
+    }
+
     /**
      * Change handler
      *

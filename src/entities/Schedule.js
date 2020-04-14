@@ -24,6 +24,85 @@ class Schedule {
     }
 
     /**
+     * Load data from API in schedule
+     *
+     * @param data
+     */
+    loadData = ( data ) => {
+        // Settings infos
+        this.settings.infos.name = data.settings.infos.name;
+        this.settings.infos.startDate = new Date(data.settings.infos.startDate);
+        this.settings.infos.endDate = new Date(data.settings.infos.endDate);
+        this.settings.infos.days = data.settings.infos.days;
+
+        // Settings keys
+        this.settings.keys.sessionKey = data.settings.keys.sessionKey;
+        this.settings.keys.slotKey = data.settings.keys.slotKey;
+        this.settings.keys.speakerKey = data.settings.keys.speakerKey;
+
+        // Settings preferences
+        this.settings.preferences.dayCellHeight = parseInt( data.settings.preferences.dayCellHeight );
+        this.settings.preferences.dayCellWidth = parseInt( data.settings.preferences.dayCellWidth );
+        this.settings.preferences.sessionsPerSlot = parseInt( data.settings.preferences.sessionsPerSlot );
+        this.settings.preferences.speakersPerSlot = parseInt( data.settings.preferences.speakersPerSlot );
+        this.settings.preferences.mentionOption = data.settings.preferences.mentionOption;
+        this.settings.preferences.showGroup = data.settings.preferences.showGroup;
+        this.settings.preferences.showSlot = data.settings.preferences.showSlot;
+
+        // Settings sessions
+        this.settings.sessions = {};
+        Object.keys( data.settings.sessions ).forEach( key => {
+            this.settings.sessions[key] = new Session(
+                data.settings.sessions[key].name,
+                data.settings.sessions[key].alias,
+                data.settings.sessions[key].color
+            )
+        });
+
+        // Settings slots
+        this.settings.slots = {};
+        Object.keys( data.settings.slots ).forEach( key => {
+            this.settings.slots[key] = new Slot(
+                data.settings.slots[key].startTime,
+                data.settings.slots[key].endTime
+            )
+        });
+
+        // Settings speakers
+        this.settings.speakers = {};
+        Object.keys( data.settings.speakers ).forEach( key => {
+            this.settings.speakers[key] = new Speaker(
+                data.settings.speakers[key].name,
+                data.settings.speakers[key].alias
+            )
+        });
+
+        // Data
+        Object.keys( this.data ).forEach( key => {
+            delete this.data[key];
+        });
+
+        Object.keys( data.data ).forEach( day => {
+            this.data[day] = new DayDetails();
+
+            Object.keys( data.data[day] ).forEach( slot => {
+                this.data[day][slot] = new SlotDetails();
+
+                Object.keys( data.data[day][slot] ).forEach( session => {
+                    this.data[day][slot][session] = new SessionDetails(
+                        data.data[day][slot][session].sessionKey,
+                        data.data[day][slot][session].speakerKeys,
+                        data.data[day][slot][session].mention
+                    );
+                });
+            });
+        });
+
+        // maxSessionPerSlots
+        this.maxSessionsPerSlot = parseInt( data.maxSessionsPerSlot );
+    };
+
+    /**
      * Init data with keys of schedule days
      */
     initData = () => {
@@ -171,6 +250,5 @@ class Schedule {
 }
 
 const sch = new Schedule();
-sch.init();
 
 export default sch;

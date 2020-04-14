@@ -6,9 +6,13 @@ import colorUtils from "../../../utils/ColorUtils";
 class SessionsList extends React.Component {
 
     state = {
-        colors: [],
         sessions: this.props.schedule.settings.sessions
     };
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if ( prevProps !== this.props )
+            this.setState( { sessions: this.props.schedule.settings.sessions } );
+    }
 
     /**
      * Change handler
@@ -71,7 +75,7 @@ class SessionsList extends React.Component {
     render() {
         let sessions = [];
 
-        if( this.state.sessions ) {
+        if ( this.state.sessions ) {
             sessions = Object.keys( this.state.sessions ).map( key => (
                 <div key={key} className="content-menu-list">
                     <input
