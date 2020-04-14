@@ -79,7 +79,8 @@ class Schedule {
 
         // Data
         Object.keys( this.data ).forEach( key => {
-            delete this.data[key];
+            // Remove entry with string format day key to clear data object
+            if ( ! isNaN( (new Date(key)).getTime() ) ) delete this.data[key];
         });
 
         Object.keys( data.data ).forEach( day => {
