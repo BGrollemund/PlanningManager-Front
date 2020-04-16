@@ -1,4 +1,5 @@
 import React from "react";
+import history from "../history";
 
 import Header from "./header/Header";
 import Footer from "./footer/Footer";
@@ -15,18 +16,30 @@ class App extends React.Component {
         scheduleId: '',
         userAttr: {
             token: '',
-            userId: ''
+            userId: '',
+            role: ''
         }
     };
+
+    componentDidMount() {
+        // Set user attributes if redirect to home with
+        if ( this.props.location.state && this.props.location.state.userAttr ) {
+            this.setState( { userAttr: this.props.location.state.userAttr } );
+
+            // Clear props.location.state
+            history.push( '/', {} );
+        }
+    }
 
     /**
      * Change user attributes when connect or disconnect
      *
      * @param token
      * @param userId
+     * @param role
      */
-    changeUserAttr = ( token, userId ) => {
-        this.setState( { scheduleId: '', userAttr: { token: token, userId: userId } } );
+    changeUserAttr = ( token, userId, role ) => {
+        this.setState( { scheduleId: '', userAttr: { token: token, userId: userId, role: role } } );
     };
 
     /**

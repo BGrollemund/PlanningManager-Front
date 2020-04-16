@@ -9,23 +9,29 @@ class Connection extends React.Component {
         userAttr: this.props.userAttr
     };
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if ( prevProps !== this.props )
+            this.setState( { userAttr: this.props.userAttr } );
+    }
+
     /**
      * Login adding user attributes
      *
      * @param token
      * @param userId
+     * @param role
      */
-    login = ( token, userId ) => {
-        this.setState( { userAttr: { token: token, userId: userId } } );
-        this.props.changeUserAttr( token, userId );
+    login = ( token, userId, role ) => {
+        this.setState( { userAttr: { token: token, userId: userId, role: role } } );
+        this.props.changeUserAttr( token, userId, role );
     };
 
     /**
      * Logout removing user attributes
      */
     logout = () => {
-        this.setState( { userAttr: { token: '', userId: '' } } );
-        this.props.changeUserAttr( '', '' );
+        this.setState( { userAttr: { token: '', userId: '', role: '' } } );
+        this.props.changeUserAttr( '', '', '' );
     };
 
     /**
@@ -58,7 +64,6 @@ class Connection extends React.Component {
                         closePopup={ this.closePopup }
                         login={ this.login }
                         userAttr={ this.state.userAttr } />;
-
 
         return (
             <div>

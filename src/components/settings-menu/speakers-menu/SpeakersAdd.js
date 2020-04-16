@@ -67,7 +67,7 @@ class SpeakersAdd extends React.Component {
                     value="Ajouter"
                     type="button" />
 
-                <div className="error" id="speaker-error"></div>
+                <div className="error" id="speaker-error"/>
             </div>
         );
     }

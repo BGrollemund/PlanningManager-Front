@@ -1,33 +1,63 @@
 import React from "react";
 
 import Connector from "../../../connector/Connector";
+
+import SaveLoadRemovePopup from "./SaveLoadRemovePopup";
+
 import dateUtils from "../../../utils/DateUtils";
+
 
 class SaveLoadDetails extends React.Component {
 
     state = {
-        schedulesList: []
+        showRemovePopup: false,
+        schedulesList: [],
+        scheduleToRemove: {}
     };
 
+    constructor(props) {
+        super(props);
+        this._isMounted = false;
+    }
+
     componentDidMount() {
-        Connector.post(
-                'api/users/get-schedules-infos',
-                { userId: this.props.userAttr.userId },
-                { headers: { 'authorization': 'Bearer ' + this.props.userAttr.token } } )
-            .then( res => this.setState( { schedulesList: res.data.schedules } ) )
-            .catch( error => console.log(error) );
+        this._isMounted = true;
+        this._isMounted && this.getSchedulesInfos();
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if ( prevProps !== this.props ) {
-            Connector.post(
-                    'api/users/get-schedules-infos',
-                    { userId: this.props.userAttr.userId },
-                    { headers: { 'authorization': 'Bearer ' + this.props.userAttr.token } } )
-                .then( res => this.setState( { schedulesList: res.data.schedules } ) )
-                .catch( error => console.log(error) );
-        }
+        if ( prevProps !== this.props ) this.getSchedulesInfos();
     }
+
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
+
+    /**
+     * Close popup
+     */
+    closePopup = () => {
+        this.setState( { showRemovePopup: false } );
+    };
+
+    /**
+     * Open remove session popup
+     */
+    openRemovePopup = ( scheduleInfos ) => {
+        this.setState( { scheduleToRemove: scheduleInfos, showRemovePopup: true } );
+    };
+
+    /**
+     * Get schedules infos
+     */
+    getSchedulesInfos = () => {
+        Connector.post(
+            'api/users/get-schedules-infos',
+                { userId: this.props.userAttr.userId },
+                { headers: { 'authorization': 'Bearer ' + this.props.userAttr.token } } )
+            .then( res => this._isMounted && this.setState( { schedulesList: res.data.schedules } ) )
+            .catch( error => console.log(error) );
+    };
 
     /**
      * Load schedule from database
@@ -52,6 +82,7 @@ class SaveLoadDetails extends React.Component {
      * @param scheduleId
      */
     removeSchedule = ( scheduleId ) => {
+        this.closePopup();
         Connector.post(
                 'api/users/remove-schedule',
                 { userId: this.props.userAttr.userId, id: scheduleId },
@@ -90,7 +121,14 @@ class SaveLoadDetails extends React.Component {
     };
 
     render() {
-        let loadSchedules = [];
+        let
+            popup = '',
+            loadSchedules = [];
+
+        if ( this.state.showRemovePopup ) popup = <SaveLoadRemovePopup
+                                                        removeSchedule={ this.removeSchedule }
+                                                        closePopup={ this.closePopup }
+                                                        scheduleInfos={ this.state.scheduleToRemove } />;
 
         if ( this.state.schedulesList ) {
             loadSchedules = Object.keys( this.state.schedulesList ).map( key => (
@@ -112,7 +150,7 @@ class SaveLoadDetails extends React.Component {
                             type="button" />
                         <input
                             className="red"
-                            onClick={ this.removeSchedule.bind( this, this.state.schedulesList[key].id ) }
+                            onClick={ this.openRemovePopup.bind( this, this.state.schedulesList[key] ) }
                             value="Supprimer"
                             type="button" />
                     </div>
@@ -130,6 +168,7 @@ class SaveLoadDetails extends React.Component {
                         type="button"/>
                 </div>
                 { loadSchedules }
+                { popup }
             </div>
         );
     }

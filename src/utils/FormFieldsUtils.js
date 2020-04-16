@@ -108,6 +108,76 @@ class FormFieldsUtils {
     };
 
     /**
+     * Check field of change password form in admin users menu
+     *
+     * @param password
+     * @return {boolean}
+     */
+    checkChangePasswordField = ( password ) => {
+        const
+            $password = document.querySelector( '#change-password' ),
+            $passwordError = document.querySelector( '#change-password-error' );
+
+        let
+            errMsg = '',
+            isValid = true;
+
+        if( ! password ) {
+            errMsg = 'Veuillez renseigner le champ.';
+            isValid = false;
+        }
+
+        password ?
+            $password.classList.remove( 'error-bg' ) :
+            $password.classList.add( 'error-bg' );
+
+        $passwordError.innerHTML = errMsg;
+
+        return isValid;
+    };
+
+    /**
+     * Check field of create form form in admin users menu
+     *
+     * @param email
+     * @param password
+     * @return {boolean}
+     */
+    checkCreateUserFields = ( email, password ) => {
+        const
+            isValidEmail = this.checkEmail( email ),
+            $email = document.querySelector( '#create-user-email' ),
+            $error = document.querySelector( '#create-user-error' ),
+            $password = document.querySelector( '#create-user-password' );
+
+        let
+            errMsg = '',
+            isValid = true;
+
+        if ( ! isValidEmail ) {
+            errMsg = 'Veuillez entrer un e-mail valide.';
+            isValid = false;
+            $email.classList.add( 'error-bg' );
+        }
+
+        if( ! ( email && password ) ) {
+            errMsg = 'Veuillez renseigner les champs.';
+            isValid = false;
+        }
+
+        email && isValidEmail ?
+            $email.classList.remove( 'error-bg' ) :
+            $email.classList.add( 'error-bg' );
+        password ?
+            $password.classList.remove( 'error-bg' ) :
+            $password.classList.add( 'error-bg' );
+
+        $error.innerHTML = errMsg;
+
+        return isValid;
+    };
+
+    /**
      * Check if a string have a valid email format
      *
      * @param email

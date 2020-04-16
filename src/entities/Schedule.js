@@ -51,31 +51,37 @@ class Schedule {
 
         // Settings sessions
         this.settings.sessions = {};
-        Object.keys( data.settings.sessions ).forEach( key => {
-            this.settings.sessions[key] = new Session(
-                data.settings.sessions[key].name,
-                data.settings.sessions[key].alias,
-                data.settings.sessions[key].color
-            )
-        });
+        if ( data.settings.sessions ) {
+            Object.keys( data.settings.sessions ).forEach( key => {
+                this.settings.sessions[key] = new Session(
+                    data.settings.sessions[key].name,
+                    data.settings.sessions[key].alias,
+                    data.settings.sessions[key].color
+                )
+            });
+        }
 
         // Settings slots
         this.settings.slots = {};
-        Object.keys( data.settings.slots ).forEach( key => {
-            this.settings.slots[key] = new Slot(
-                data.settings.slots[key].startTime,
-                data.settings.slots[key].endTime
-            )
-        });
+        if ( data.settings.slots ) {
+            Object.keys( data.settings.slots ).forEach( key => {
+                this.settings.slots[key] = new Slot(
+                    data.settings.slots[key].startTime,
+                    data.settings.slots[key].endTime
+                )
+            });
+        }
 
         // Settings speakers
         this.settings.speakers = {};
-        Object.keys( data.settings.speakers ).forEach( key => {
-            this.settings.speakers[key] = new Speaker(
-                data.settings.speakers[key].name,
-                data.settings.speakers[key].alias
-            )
-        });
+        if ( data.settings.speakers ) {
+            Object.keys( data.settings.speakers ).forEach( key => {
+                this.settings.speakers[key] = new Speaker(
+                    data.settings.speakers[key].name,
+                    data.settings.speakers[key].alias
+                )
+            });
+        }
 
         // Data
         Object.keys( this.data ).forEach( key => {

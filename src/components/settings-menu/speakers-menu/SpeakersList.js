@@ -1,15 +1,33 @@
 import React from "react";
 
+import SpeakersRemovePopup from "./SpeakersRemovePopup";
+
 class SpeakersList extends React.Component {
 
     state = {
-        speakers: this.props.schedule.settings.speakers
+        showRemovePopup: false,
+        speakers: this.props.schedule.settings.speakers,
+        speakerKeyToRemove: ''
     };
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if ( prevProps !== this.props )
             this.setState( { speakers: this.props.schedule.settings.speakers } );
     }
+
+    /**
+     * Close popup
+     */
+    closePopup = () => {
+        this.setState( { showRemovePopup: false } );
+    };
+
+    /**
+     * Open remove session popup
+     */
+    openRemovePopup = ( key ) => {
+        this.setState( { speakerKeyToRemove: key, showRemovePopup: true } );
+    };
 
     /**
      * Change handler
@@ -36,13 +54,22 @@ class SpeakersList extends React.Component {
      * @param key
      */
     removeSpeaker = ( key ) => {
+        this.closePopup();
         this.props.schedule.removeSpeaker( key );
-
         this.props.update();
     };
 
     render() {
-        let speakers = [];
+        let
+            popup = '',
+            speakers = [];
+
+        if ( this.state.showRemovePopup ) popup = <SpeakersRemovePopup
+                                                        removeSpeaker={ this.removeSpeaker }
+                                                        closePopup={ this.closePopup }
+                                                        speakerName={ this.state.speakers
+                                                                            [this.state.speakerKeyToRemove].name }
+                                                        speakerKey={ this.state.speakerKeyToRemove } />;
 
         if( this.state.speakers ) {
             speakers = Object.keys( this.state.speakers ).map( key => (
@@ -63,7 +90,7 @@ class SpeakersList extends React.Component {
 
                     <input
                         className="red"
-                        onClick={ this.removeSpeaker.bind( this, key ) }
+                        onClick={ this.openRemovePopup.bind( this, key ) }
                         value="Supprimer"
                         type="button" />
                 </div>
@@ -71,7 +98,10 @@ class SpeakersList extends React.Component {
         }
 
         return (
-            <div>{ speakers }</div>
+            <div>
+                { speakers }
+                { popup }
+            </div>
         );
     }
 }

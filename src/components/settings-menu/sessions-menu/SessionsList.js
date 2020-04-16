@@ -1,18 +1,36 @@
 import React from "react";
 import ReactCircleColorPicker from "react-circle-color-picker";
 
+import SessionsRemovePopup from "./SessionsRemovePopup";
+
 import colorUtils from "../../../utils/ColorUtils";
 
 class SessionsList extends React.Component {
 
     state = {
-        sessions: this.props.schedule.settings.sessions
+        showRemovePopup: false,
+        sessions: this.props.schedule.settings.sessions,
+        sessionKeyToRemove: ''
     };
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if ( prevProps !== this.props )
             this.setState( { sessions: this.props.schedule.settings.sessions } );
     }
+
+    /**
+     * Close popup
+     */
+    closePopup = () => {
+        this.setState( { showRemovePopup: false } );
+    };
+
+    /**
+     * Open remove session popup
+     */
+    openRemovePopup = ( key ) => {
+        this.setState( { sessionKeyToRemove: key, showRemovePopup: true } );
+    };
 
     /**
      * Change handler
@@ -67,13 +85,22 @@ class SessionsList extends React.Component {
      * @param key
      */
     removeSession = ( key ) => {
+        this.closePopup();
         this.props.schedule.removeSession( key );
-
         this.props.update();
     };
 
     render() {
-        let sessions = [];
+        let
+            popup = '',
+            sessions = [];
+
+        if ( this.state.showRemovePopup ) popup = <SessionsRemovePopup
+                                                        removeSession={ this.removeSession }
+                                                        closePopup={ this.closePopup }
+                                                        sessionName={ this.state.sessions
+                                                                                [this.state.sessionKeyToRemove].name }
+                                                        sessionKey={ this.state.sessionKeyToRemove } />;
 
         if ( this.state.sessions ) {
             sessions = Object.keys( this.state.sessions ).map( key => (
@@ -98,7 +125,7 @@ class SessionsList extends React.Component {
 
                     <input
                         className="red"
-                        onClick={ this.removeSession.bind( this, key ) }
+                        onClick={ this.openRemovePopup.bind( this, key ) }
                         type="button"
                         value="Supprimer" />
                 </div>
@@ -106,7 +133,10 @@ class SessionsList extends React.Component {
         }
 
         return (
-            <div>{ sessions }</div>
+            <div>
+                { sessions }
+                { popup }
+            </div>
         );
     }
 }

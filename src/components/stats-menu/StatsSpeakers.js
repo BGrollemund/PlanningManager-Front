@@ -8,11 +8,11 @@ class StatsSpeakers extends React.Component {
             speakersStats = this.props.stats.speakers;
 
         let
-            details = [],
+            details,
             sessionsDetails = {},
             spanSessionsDetails = {},
             spanTotalDetails = {},
-            total = [];
+            total;
 
 
         if( this.props.stats.infos.sessionsPerSlot <= 1 ) {
@@ -42,8 +42,7 @@ class StatsSpeakers extends React.Component {
             }
 
             Object.keys( speakersStats.details[keySp].sessions ).forEach( keySe => {
-                if( Object.entries( speakersStats.details[keySp].sessions[keySe] ).every(
-                    ( value, key , array ) => value[1] === array[0][1]  ) ) {
+                if( this.props.stats.infos.sessionsPerSlot <= 1 ) {
                     spanSessionsDetails[keySe] =
                         <span className="stats-list-span">
                             { timeUtils.convertString( speakersStats.details[keySp].sessions[keySe][0] ) }
@@ -64,6 +63,9 @@ class StatsSpeakers extends React.Component {
                 if ( ! Object.values( speakersStats.details[keySp].sessions[keySe] ).every( val => val === 0 ) ) {
                     result = <div key={keySe} className="stats-details-div">
                         <div className="bold">{ keySe } : </div>
+                        <span className="stats-list-span">
+                            { timeUtils.convertString( speakersStats.details[keySp].detailsTotal[keySe] ) }
+                        </span>
                         { spanSessionsDetails[keySe] }
                     </div>;
                 }

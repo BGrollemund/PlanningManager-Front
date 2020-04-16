@@ -65,7 +65,7 @@ class SlotsAdd extends React.Component {
                     value="Ajouter"
                     type="button" />
 
-                <div className="error" id="slot-error"></div>
+                <div className="error" id="slot-error"/>
             </div>
         );
     }

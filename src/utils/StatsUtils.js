@@ -161,6 +161,7 @@ class StatsUtils {
             isAdded[ elSp.name ] = false;
 
             details[ elSp.name ] = {
+                detailsTotal: {},
                 sessions: {},
                 total: {}
             };
@@ -169,6 +170,7 @@ class StatsUtils {
 
             Object.values( settings.sessions ).forEach( elSe => {
                 details[ elSp.name ].sessions[ elSe.name ] = {};
+                details[ elSp.name ].detailsTotal[ elSe.name ] = 0;
                 for ( let i=0; i<sessionsPerSlot; i++ ) details[ elSp.name ].sessions[ elSe.name ][i] = 0;
             });
         });
@@ -211,6 +213,10 @@ class StatsUtils {
                                         if ( ! isAdded[settings.speakers[el].name] ) {
                                             detailsTotal[settings.speakers[el].name] += duration;
                                             isAdded[settings.speakers[el].name] = true;
+
+                                            if( settings.sessions[data[day][slot[0]][i].sessionKey] )
+                                                details[settings.speakers[el].name]
+                                                    .detailsTotal[settings.sessions[data[day][slot[0]][i].sessionKey].name] += duration;
                                         }
                                     }
                                 });

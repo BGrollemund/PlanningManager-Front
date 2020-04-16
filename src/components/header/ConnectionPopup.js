@@ -1,10 +1,15 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 
 import Connector from "../../connector/Connector";
 
 import formFieldsUtils from "../../utils/FormFieldsUtils";
 
 class ConnectionPopup extends React.Component {
+
+    state = {
+        goToAdmin: false
+    };
 
     /**
      * Connection popup buttons handler
@@ -38,8 +43,19 @@ class ConnectionPopup extends React.Component {
         if( formFieldsUtils.checkLoginFields( loginEmail, loginPassword ) ) {
             Connector.post( '/api/users/login', { email: loginEmail, password: loginPassword } )
                 .then( res => {
-                    this.props.login( res.data.token, res.data.userId );
-                    this.props.closePopup();
+                    this.props.login( res.data.token, res.data.userId, res.data.role );
+
+                    // Redirect to admin dashboard if user is admin
+                    if ( res.data.role === 'ADMIN' ) {
+                        this.setState( { goToAdmin: true, userAttr: {
+                            token: res.data.token,
+                            userId: res.data.userId,
+                            role: res.data.role
+                            } } );
+                    }
+                    else {
+                        this.props.closePopup();
+                    }
                 })
                 .catch( () => {
                     $loginEmail.classList.add( 'error-bg' );
@@ -63,7 +79,7 @@ class ConnectionPopup extends React.Component {
             signupPassword2 = $signupPassword2.value;
 
         if( formFieldsUtils.checkSignupFields( signupEmail, signupPassword, signupPassword2 ) ) {
-                Connector.post( '/api/users/signup', { email: signupEmail, password: signupPassword, role: 'USER' } )
+                Connector.post( '/api/users/signup', { email: signupEmail, password: signupPassword } )
                     .then( res => {
                         this.props.login( res.data.token, res.data.userId );
                         this.props.closePopup();
@@ -76,10 +92,19 @@ class ConnectionPopup extends React.Component {
     };
 
     render() {
+        if ( this.state.goToAdmin ) {
+            return <Redirect to = {
+                        {
+                            pathname: '/pm-dashboard-admin',
+                            state: { userAttr: this.state.userAttr }
+                        }
+            } />;
+        }
+
         return (
             <div className='popup'>
                 <div
-                    className='popup-connection'
+                    className='popup-content'
                     onClick={ this.onConnectionClick }>
                     <h3>Se connecter</h3>
                     <div>
@@ -96,7 +121,7 @@ class ConnectionPopup extends React.Component {
                             value="Se connecter"
                             type="button"/>
                     </div>
-                    <div className="error" id="login-error"></div>
+                    <div className="error" id="login-error"/>
                     <h3>S'inscrire</h3>
                     <input
                         id="signup-email"
@@ -115,13 +140,13 @@ class ConnectionPopup extends React.Component {
                             className="green signup"
                             value="S'inscrire"
                             type="button"/>
-                        <div className="flex-grow-1"></div>
+                        <div className="flex-grow-1"/>
                         <input
                             className="cancel"
                             value="Annuler"
                             type="button"/>
                     </div>
-                    <div className="error" id="signup-error"></div>
+                    <div className="error" id="signup-error"/>
                 </div>
             </div>
         );

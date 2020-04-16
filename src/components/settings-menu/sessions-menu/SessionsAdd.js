@@ -100,7 +100,7 @@ class SessionsAdd extends React.Component {
                     value="Ajouter"
                     type="button" />
 
-                <div className="error" id="session-error"></div>
+                <div className="error" id="session-error"/>
             </div>
         );
     }
