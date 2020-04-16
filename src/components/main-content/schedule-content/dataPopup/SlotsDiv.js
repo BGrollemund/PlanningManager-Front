@@ -28,7 +28,7 @@ class SlotsDiv extends React.Component {
             );
         }
 
-        if ( this.props.showMask ) mask = <div className="slot-mask"></div>;
+        if ( this.props.showMask ) mask = <div className="slot-mask"/>;
 
         return (
             <div className="slot-content-box">
