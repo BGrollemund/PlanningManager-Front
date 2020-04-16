@@ -52,9 +52,6 @@ class MenuAdmin extends React.Component {
 
         if( classList.contains('admin-users') )
             this.onMenuBtnClick( event.target, 'admin-users' );
-
-        if( classList.contains('admin-config') )
-            this.onMenuBtnClick( event.target, 'admin-config' );
     };
 
     render() {
@@ -63,7 +60,6 @@ class MenuAdmin extends React.Component {
                 <ul onClick={ this.onMenuClick }>
                     <li className="admin-btn admin-infos activated">Général</li>
                     <li className="admin-btn admin-users">Utilisateurs</li>
-                    <li className="admin-btn admin-config">Configuration</li>
                 </ul>
             </nav>
         );
